@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4421ad010e3d244087f52387f5b672e, type: 3}
   m_Name: Luffy
   m_EditorClassIdentifier: 
-  characterPortrait: {fileID: 21300000, guid: 2e560aea0861079419fd28b808e3745b, type: 3}
+  characterPortrait: {fileID: 21300000, guid: 4746ed64459b73d4491c2dacfeb2a959, type: 3}
   characterName: Monkey D. Luffy
   rarity: 4
   attackPower: 0

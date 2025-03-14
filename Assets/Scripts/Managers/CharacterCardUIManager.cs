@@ -6,8 +6,10 @@ public class CharacterCardUIManager : MonoBehaviour
 {
     public static CharacterCardUIManager Instance { get; private set; }
 
-    public GameObject characterCardPrefab;
-    public GameObject parentUI;
+    [SerializeField]
+    private GameObject characterCard;
+    [SerializeField]
+    private GameObject parentUI;
     private CharacterCardUI cardUI;
 
     private void Awake()
@@ -22,8 +24,7 @@ public class CharacterCardUIManager : MonoBehaviour
 
     void Start()
     {
-        GameObject cardObj = Instantiate(characterCardPrefab, parentUI.GetComponent<Transform>());
-        cardUI = cardObj.GetComponent<CharacterCardUI>();
+
     }
 
     // Update is called once per frame
@@ -34,6 +35,7 @@ public class CharacterCardUIManager : MonoBehaviour
 
     public void OnCharacterSelected(CharacterData characterData)
     {
-        cardUI.ShowInfo(characterData);
+        if (characterCard.activeInHierarchy) return;
+        characterCard.GetComponent<CharacterCardUI>().ShowInfo(characterData);
     }
 }

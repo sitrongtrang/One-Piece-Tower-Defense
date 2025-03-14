@@ -1,18 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Rarity
-{
-    Common,
-    Uncommon,
-    Rare,
-    Epic,
-    Legendary,
-    Unique,
-    Mythic,
-    Awakened
-}
-
 [System.Serializable]
 public class UpgradeRequirement
 {

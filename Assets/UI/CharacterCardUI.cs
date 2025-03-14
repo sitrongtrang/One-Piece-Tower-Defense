@@ -4,14 +4,24 @@ using TMPro;
 
 public class CharacterCardUI : MonoBehaviour
 {
-    public Image characterPortrait;
-    public TextMeshProUGUI characterName;
-    public TextMeshProUGUI characterRarity;
-    public TextMeshProUGUI statsText;
+    private CharacterData characterData;
+
+    [SerializeField]
+    private Image characterPortrait;
+    [SerializeField]
+    private TextMeshProUGUI characterName;
+    [SerializeField]
+    private TextMeshProUGUI characterRarity;
+    [SerializeField]
+    private TextMeshProUGUI statsText;
     //public Transform abilityContainer;
     //public GameObject abilityIconPrefab;
-    public Button viewUpgradesButton;
-    public Button closeButton;
+    [SerializeField]
+    private Button viewUpgradesButton;
+    [SerializeField]
+    private Button closeButton;
+    [SerializeField]
+    private GameObject upgradeList;
 
     private void Start()
     {
@@ -19,8 +29,10 @@ public class CharacterCardUI : MonoBehaviour
         closeButton.onClick.AddListener(Close);
     }
 
-    public void Setup(CharacterData data)
+    private void Setup(CharacterData data)
     {
+        characterData = data;
+
         characterPortrait.sprite = data.characterPortrait;
         characterName.text = data.characterName;
         characterRarity.text = data.rarity.ToString();
@@ -39,23 +51,24 @@ public class CharacterCardUI : MonoBehaviour
         //    icon.GetComponent<Image>().sprite = ability;
         //}
 
-        // viewUpgradesButton.onClick.AddListener(OpenUpgradeScreen);
+        viewUpgradesButton.onClick.AddListener(OpenUpgradeList);
     }
-
-    //private void OpenUpgradeScreen()
-    //{
-    //    gameManager.ShowUpgradeOptions(characterData);
-    //}
 
     public void ShowInfo(CharacterData characterData)
     {
-        gameObject.SetActive(true);
         Setup(characterData);
+        gameObject.SetActive(true);
     }
 
     public void Close()
     {
         gameObject.SetActive(false);
-        GameManager.Instance.CloseCharacterInfo();
+        upgradeList.GetComponent<UpgradeListUI>().Close();
+    }
+
+    private void OpenUpgradeList()
+    {
+        if (upgradeList.activeInHierarchy) return;
+        if (characterData.upgradeOptions.Count > 0) upgradeList.GetComponent<UpgradeListUI>().ShowOptionList(characterData.upgradeOptions);
     }
 }

@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4421ad010e3d244087f52387f5b672e, type: 3}
   m_Name: LuffyBoundman
   m_EditorClassIdentifier: 
+  characterPortrait: {fileID: 0}
   characterName: Luffy Boundman
   rarity: 6
   attackPower: 0
   attackSpeed: 0
   range: 0
+  health: 0
   attackAnimation: 
   skillAnimation: 
   upgradeOptions:
