@@ -26,12 +26,6 @@ public class UpgradeOption : Panel
         characterName.text = requirement.upgradeTarget.characterName;
     }
 
-    public override void Show(object data)
-    {
-        base.Show(data);
-        Debug.Log(gameObject);
-    }
-
     public override void Close()
     {
         base.Close();

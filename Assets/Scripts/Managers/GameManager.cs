@@ -34,9 +34,17 @@ public class EnumHelper
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public GameObject characterPrefab;
+    public GameObject basicCharacterPrefab;
+    public CharacterData basicCharacterData;
 
     public Dictionary<Rarity, Color> RarityToColor;
+    public List<CharacterData> characters;
+
+    private string prefabFolderPath = "Prefabs/Towers/Strawhats";
+
+    public List<CharacterData> ownedCharacters;
+
+    [SerializeField] private GameObject recruitPanel;
 
     private void Awake()
     {
@@ -56,6 +64,15 @@ public class GameManager : MonoBehaviour
         RarityToColor.Add(Rarity.Unique, Color.magenta);
         RarityToColor.Add(Rarity.Mythic, Color.red);
         RarityToColor.Add(Rarity.Awakened, new Color(255, 165, 0));
+
+        GameObject[] prefabs = Resources.LoadAll<GameObject>(prefabFolderPath);
+        foreach (GameObject prefab in prefabs)
+        {
+            CharacterData data = Instantiate(prefab).GetComponent<TowerCharacter>().characterData;
+            characters.Add(data);
+        }
+
+        basicCharacterData = Instantiate(basicCharacterPrefab).GetComponent<TowerCharacter>().characterData;
     }
 
     void Start()
@@ -71,7 +88,22 @@ public class GameManager : MonoBehaviour
 
     public void ViewCharacterInfo()
     {
-        CharacterData data = Instantiate(characterPrefab).GetComponent<TowerCharacter>().characterData;
+        CharacterData data;
+        if (ownedCharacters.Count > 0)
+        {
+            int index = UnityEngine.Random.Range(0, ownedCharacters.Count);
+            data = ownedCharacters[index];
+        } else
+        {
+            data = basicCharacterData;
+        }
+
         CharacterCardUIManager.Instance.OnCharacterSelected(data);
+    }
+
+    public void ViewRecruits()
+    {
+        if (recruitPanel.activeInHierarchy) return;
+        recruitPanel.GetComponent<RecruitPanel>().Show(6);
     }
 }
