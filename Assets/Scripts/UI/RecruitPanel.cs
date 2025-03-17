@@ -57,10 +57,8 @@ public class RecruitPanel : Panel
 
     public void ViewRecruitInfo(int index)
     {
-        if (recruitedChars[index] != null)
-        {
-            recruitInfoPanel.GetComponent<RecruitInfoPanel>().Show(new RecruitInfo(recruitedChars[index], index));
-        }
+        if (recruitedChars[index] != null) recruitInfoPanel.GetComponent<RecruitInfoPanel>().Show(new RecruitInfo(recruitedChars[index], index));
+        else recruitInfoPanel.GetComponent<RecruitInfoPanel>().Close();
     }
 
     public void RemoveSlot(int index)
