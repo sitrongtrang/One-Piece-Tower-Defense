@@ -10,10 +10,11 @@ public enum Rarity
     Uncommon,
     Rare,
     Epic,
-    Legendary,
-    Unique,
+    Heroic,
     Mythic,
-    Awakened
+    Unique,
+    Extreme,
+    Legendary
 }
 
 public class EnumHelper
@@ -40,11 +41,12 @@ public class GameManager : MonoBehaviour
     public Dictionary<Rarity, Color> RarityToColor;
     public List<CharacterData> characters;
 
-    private string prefabFolderPath = "Prefabs/Towers/Strawhats";
+    private string prefabFolderPath = "Prefabs/Towers";
 
     public List<CharacterData> ownedCharacters;
 
     [SerializeField] private GameObject recruitPanel;
+    [SerializeField] private GameObject characterPanel;
 
     private void Awake()
     {
@@ -60,10 +62,11 @@ public class GameManager : MonoBehaviour
         RarityToColor.Add(Rarity.Uncommon, Color.green);
         RarityToColor.Add(Rarity.Rare, Color.blue);
         RarityToColor.Add(Rarity.Epic, new Color(128, 0, 128));
-        RarityToColor.Add(Rarity.Legendary, Color.yellow);
-        RarityToColor.Add(Rarity.Unique, Color.magenta);
+        RarityToColor.Add(Rarity.Heroic, Color.yellow);
         RarityToColor.Add(Rarity.Mythic, Color.red);
-        RarityToColor.Add(Rarity.Awakened, new Color(255, 165, 0));
+        RarityToColor.Add(Rarity.Unique, Color.magenta);
+        RarityToColor.Add(Rarity.Extreme, new Color(255, 131, 83));
+        RarityToColor.Add(Rarity.Legendary, new Color(255, 94, 32));
 
         GameObject[] prefabs = Resources.LoadAll<GameObject>(prefabFolderPath);
         foreach (GameObject prefab in prefabs)
@@ -73,21 +76,24 @@ public class GameManager : MonoBehaviour
         }
 
         basicCharacterData = Instantiate(basicCharacterPrefab).GetComponent<TowerCharacter>().characterData;
+        ownedCharacters.Add(basicCharacterData);
     }
 
-    public void ViewCharacterInfo()
+    public void ViewCharacters(int index)
     {
-        CharacterData data;
-        if (ownedCharacters.Count > 0)
+        if (index >= ownedCharacters.Count || characterPanel.activeInHierarchy) return;
+        List<CharacterData> characters = new List<CharacterData>();
+        for (int  i = 0; i < 6; i++)
         {
-            int index = UnityEngine.Random.Range(0, ownedCharacters.Count);
-            data = ownedCharacters[index];
-        } else
-        {
-            data = basicCharacterData;
+            if (index + i < ownedCharacters.Count)
+            {
+                characters.Add(ownedCharacters[index + i]);
+            } else
+            {
+                characters.Add(null);
+            }
         }
-
-        CharacterCardUIManager.Instance.OnCharacterSelected(data);
+        characterPanel.GetComponent<CharacterPanel>().Show(characters);
     }
 
     public void ViewRecruits()

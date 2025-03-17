@@ -17,7 +17,7 @@ public class CharacterCardUI : Panel
 
     protected override void Start()
     {
-        base.Start();
+        //base.Start();
         if (viewUpgradesButton != null)
         {
             viewUpgradesButton.onClick.AddListener(OpenUpgradeList);
@@ -46,12 +46,6 @@ public class CharacterCardUI : Panel
         //    GameObject icon = Instantiate(abilityIconPrefab, abilityContainer);
         //    icon.GetComponent<Image>().sprite = ability;
         //}
-    }
-
-    public override void Show(object data)
-    {
-        base.Show(data);
-        PanelManager.Instance.OpenPanel(this);
     }
 
     public override void Close()

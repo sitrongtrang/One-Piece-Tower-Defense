@@ -37,13 +37,15 @@ public class RecruitPanel : Panel
         {
             if (recruitedChars[i] != null) recruits[i].image.sprite = recruitedChars[i].characterPortrait;
             else recruits[i].image.sprite = emptyRecruitSlot;
+            int localIndex = i;
+            recruits[i].onClick.AddListener(() => ViewRecruitInfo(localIndex));
         }
     }
 
     public override void Show(object data)
     {
         base.Show(data);
-        PanelManager.Instance.OpenPanel(this);
+        PanelManager.Instance.OpenPanel(gameObject);
     }
 
     public void Recruit(int num)

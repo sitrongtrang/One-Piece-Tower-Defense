@@ -6,31 +6,79 @@ using UnityEngine.UI;
 public class UpgradePanel : Panel
 {
     [SerializeField] private List<Button> upgradeMaterials;
+    [SerializeField] private Image target;
+    [SerializeField] private Button upgradeButton;
 
+    private UpgradeRequirement requirement;
     private Canvas canvas;
 
     protected override void Start()
     {
         base.Start();
         canvas = FindObjectOfType<Canvas>();
+        upgradeButton.onClick.AddListener(Upgrade);
     }
 
     protected override void Setup(object data)
     {
         if (!(data is UpgradeRequirement requirement)) return;
 
+        this.requirement = requirement;
         Vector3 middleOfCanvas = canvas.transform.position;
         transform.position = middleOfCanvas;
-        upgradeMaterials[0].image.sprite = requirement.upgradeTarget.characterPortrait;
-        for (int i = 1; i < upgradeMaterials.Count; i++)
+        target.sprite = requirement.upgradeTarget.characterPortrait;
+        for (int i = 0; i < upgradeMaterials.Count; i++)
         {
-            if (i - 1 < requirement.obligatoryRequirements.Count)
+            if (i < requirement.obligatoryRequirements.Count)
             {
-                upgradeMaterials[i].image.sprite = requirement.obligatoryRequirements[i - 1].characterPortrait;
+                upgradeMaterials[i].image.sprite = requirement.obligatoryRequirements[i].characterPortrait;
+                if (!GameManager.Instance.ownedCharacters.Contains(requirement.obligatoryRequirements[i]))
+                {
+                    upgradeMaterials[i].interactable = false;
+                } else
+                {
+                    upgradeMaterials[i].interactable = true;
+                }
             } else
             {
-                upgradeMaterials[i].image.color = GameManager.Instance.RarityToColor[EnumHelper.GetPreviousEnumValue(requirement.upgradeTarget.rarity)];
+                Rarity materialRarity = requirement.obligatoryRequirements[0].rarity;
+                upgradeMaterials[i].image.color = GameManager.Instance.RarityToColor[materialRarity];
+                upgradeMaterials[i].onClick.AddListener(() => ChooseMaterial(materialRarity));
             }
         }
+    }
+
+    private void ChooseMaterial(Rarity rarity)
+    {
+
+    }
+
+    private void Upgrade()
+    {
+        if (CheckUpgradeRequirements())
+        {
+            for (int i = 0; i < requirement.obligatoryRequirements.Count; i++) {
+                GameManager.Instance.ownedCharacters.Remove(requirement.obligatoryRequirements[i]);
+            }
+            GameManager.Instance.ownedCharacters.Add(requirement.upgradeTarget);
+            Close();
+        } else
+        {
+            Debug.Log("Not enough requirement");
+        }
+    }
+
+    private bool CheckUpgradeRequirements()
+    {
+        for (int i = 0; i < requirement.obligatoryRequirements.Count; i++)
+        {
+            if (!upgradeMaterials[i].interactable) return false;
+        }
+
+        for (int i = requirement.obligatoryRequirements.Count; i < upgradeMaterials.Count; i++)
+        {
+            if (upgradeMaterials[i].image.sprite == null) return false;
+        }
+        return true;
     }
 }

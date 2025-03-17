@@ -23,8 +23,11 @@ MonoBehaviour:
   skillAnimation: 
   upgradeOptions:
   - upgradeTarget: {fileID: 11400000, guid: 56f5602f28d750147a5ea2774a1ce50d, type: 2}
-    obligatoryRequirements: []
+    obligatoryRequirements:
+    - {fileID: 11400000}
   - upgradeTarget: {fileID: 11400000, guid: 7d1fe54c48848d8479006b133aa220a1, type: 2}
-    obligatoryRequirements: []
+    obligatoryRequirements:
+    - {fileID: 11400000}
   - upgradeTarget: {fileID: 11400000, guid: 2bf2b3107655409468bd93791990df64, type: 2}
-    obligatoryRequirements: []
+    obligatoryRequirements:
+    - {fileID: 11400000}
