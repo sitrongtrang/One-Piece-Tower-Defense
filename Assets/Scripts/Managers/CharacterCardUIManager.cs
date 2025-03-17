@@ -36,6 +36,6 @@ public class CharacterCardUIManager : MonoBehaviour
     public void OnCharacterSelected(CharacterData characterData)
     {
         if (characterCard.activeInHierarchy) return;
-        characterCard.GetComponent<CharacterCardUI>().ShowInfo(characterData);
+        characterCard.GetComponent<CharacterCardUI>().Show(characterData);
     }
 }

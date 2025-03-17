@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpgradePanel : MonoBehaviour
+public class UpgradePanel : Panel
 {
-    [SerializeField]
-    private List<Button> upgradeMaterials;
-    [SerializeField]
-    private Button closeButton;
+    [SerializeField] private List<Button> upgradeMaterials;
+
     private Canvas canvas;
 
-    void Start()
+    protected override void Start()
     {
-        gameObject.SetActive(false);
+        base.Start();
         canvas = FindObjectOfType<Canvas>();
-        closeButton.onClick.AddListener(Close);
     }
 
-    private void Setup(UpgradeRequirement requirement)
+    protected override void Setup(object data)
     {
+        if (!(data is UpgradeRequirement requirement)) return;
+
         Vector3 middleOfCanvas = canvas.transform.position;
         transform.position = middleOfCanvas;
         upgradeMaterials[0].image.sprite = requirement.upgradeTarget.characterPortrait;
@@ -33,16 +32,5 @@ public class UpgradePanel : MonoBehaviour
                 upgradeMaterials[i].image.color = GameManager.Instance.RarityToColor[EnumHelper.GetPreviousEnumValue(requirement.upgradeTarget.rarity)];
             }
         }
-    }
-
-    public void ShowRequirements(UpgradeRequirement requirement)
-    {
-        Setup(requirement);
-        gameObject.SetActive(true);
-    }
-
-    public void Close()
-    {
-        gameObject.SetActive(false);
     }
 }

@@ -4,46 +4,43 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UpgradeOption : MonoBehaviour
+public class UpgradeOption : Panel
 {
-    [SerializeField]
-    private Button characterPortrait;
-    [SerializeField]
-    private TextMeshProUGUI characterName;
+    [SerializeField] private Button characterPortrait;
+    [SerializeField] private TextMeshProUGUI characterName;
     private UpgradeRequirement requirement;
-    [SerializeField]
-    private GameObject upgradePanel;
+    [SerializeField] private GameObject upgradePanel;
 
     private float padding = 10f;
 
-    void Start()
+    protected override void Start()
     {
-        //closeButton.onClick.AddListener(Close);
         characterPortrait.onClick.AddListener(OpenUpgradePanel);
     }
 
-    public void Setup(UpgradeRequirement requirement)
+    protected override void Setup(object data)
     {
+        if (!(data is UpgradeRequirement requirement)) return;
         this.requirement = requirement;
         characterPortrait.GetComponent<Image>().sprite = requirement.upgradeTarget.characterPortrait;
         characterName.text = requirement.upgradeTarget.characterName;
     }
 
-    public void ShowOption(UpgradeRequirement requirement)
+    public override void Show(object data)
     {
-        Setup(requirement);
-        gameObject.SetActive(true);
+        base.Show(data);
+        Debug.Log(gameObject);
+    }
+
+    public override void Close()
+    {
+        base.Close();
+        upgradePanel.GetComponent<UpgradePanel>().Close();
     }
 
     public void OpenUpgradePanel()
     {
         if (upgradePanel.activeInHierarchy) return;
-        upgradePanel.GetComponent<UpgradePanel>().ShowRequirements(requirement);
-    }
-
-    public void Close()
-    {
-        gameObject.SetActive(false);
-        upgradePanel.GetComponent<UpgradePanel>().Close();
+        upgradePanel.GetComponent<UpgradePanel>().Show(requirement);
     }
 }

@@ -3,30 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpgradeListUI : MonoBehaviour
+public class UpgradeListUI : Panel
 {
-    [SerializeField]
-    private Button closeButton;
-    [SerializeField]
-    private GameObject characterCard;
-    [SerializeField]
-    private GameObject upgradeOptionPrefab;
+    [SerializeField] private GameObject characterCard;
+    [SerializeField] private GameObject upgradeOptionPrefab;
     private RectTransform upgradeListRect;
 
     private List<GameObject> upgradeOptionPool = new List<GameObject>();
     private float padding = 10f;
     private float optionWidth;
 
-    void Start()
+    protected override void Start()
     {
-        gameObject.SetActive(false);
-        closeButton.onClick.AddListener(Close);
+        base.Start();
         upgradeListRect = GetComponent<RectTransform>();
         optionWidth = upgradeOptionPrefab.GetComponent<RectTransform>().sizeDelta.x;
     }
 
-    private void Setup(List<UpgradeRequirement> requirements)
+    protected override void Setup(object data)
     {
+        if (!(data is List<UpgradeRequirement> requirements)) return;
         float totalWidth = requirements.Count * (optionWidth + padding) + padding;
 
         float currentPanelWidth = upgradeListRect.sizeDelta.x;
@@ -53,19 +49,13 @@ public class UpgradeListUI : MonoBehaviour
             optionRect.anchoredPosition = new Vector2(currentX, 0);
             currentX += optionWidth + padding;
 
-            upgradeOption.GetComponent<UpgradeOption>().ShowOption(requirements[i]);
+            upgradeOption.GetComponent<UpgradeOption>().Show(requirements[i]);
         }
     }
 
-    public void ShowOptionList(List<UpgradeRequirement> requirements)
+    public override void Close()
     {
-        Setup(requirements);
-        gameObject.SetActive(true);
-    }
-
-    public void Close()
-    {
-        gameObject.SetActive(false);
+        base.Close();
         foreach (GameObject option in upgradeOptionPool)
         {
             option.GetComponent<UpgradeOption>().Close();

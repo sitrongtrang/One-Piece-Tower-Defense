@@ -2,45 +2,41 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CharacterCardUI : MonoBehaviour
+public class CharacterCardUI : Panel
 {
     private CharacterData characterData;
 
-    [SerializeField]
-    private Image characterPortrait;
-    [SerializeField]
-    private TextMeshProUGUI characterName;
-    [SerializeField]
-    private TextMeshProUGUI characterRarity;
-    [SerializeField]
-    private TextMeshProUGUI statsText;
+    [SerializeField] private Image characterPortrait;
+    [SerializeField] private TextMeshProUGUI characterName;
+    [SerializeField] private TextMeshProUGUI characterRarity;
+    [SerializeField] private TextMeshProUGUI statsText;
     //public Transform abilityContainer;
     //public GameObject abilityIconPrefab;
-    [SerializeField]
-    private Button viewUpgradesButton;
-    [SerializeField]
-    private Button closeButton;
-    [SerializeField]
-    private GameObject upgradeList;
+    [SerializeField] private Button viewUpgradesButton;
+    [SerializeField] private GameObject upgradeList;
 
-    private void Start()
+    protected override void Start()
     {
-        gameObject.SetActive(false);
-        closeButton.onClick.AddListener(Close);
+        base.Start();
+        if (viewUpgradesButton != null)
+        {
+            viewUpgradesButton.onClick.AddListener(OpenUpgradeList);
+        }
     }
 
-    private void Setup(CharacterData data)
+    protected override void Setup(object data)
     {
-        characterData = data;
+        if (!(data is CharacterData character)) return;
 
-        characterPortrait.sprite = data.characterPortrait;
-        characterName.text = data.characterName;
-        characterRarity.text = data.rarity.ToString();
+        characterData = character;
+        characterPortrait.sprite = character.characterPortrait;
+        characterName.text = character.characterName;
+        characterRarity.text = character.rarity.ToString();
 
-        statsText.text = $"Attack: {data.attackPower}\n" +
-                         $"Speed: {data.attackSpeed}\n" +
-                         $"Range: {data.range}\n" +
-                         $"Health: {data.health}";
+        statsText.text = $"Attack: {character.attackPower}\n" +
+                         $"Speed: {character.attackSpeed}\n" +
+                         $"Range: {character.range}\n" +
+                         $"Health: {character.health}";
 
         //foreach (Transform child in abilityContainer)
         //    Destroy(child.gameObject);
@@ -50,25 +46,17 @@ public class CharacterCardUI : MonoBehaviour
         //    GameObject icon = Instantiate(abilityIconPrefab, abilityContainer);
         //    icon.GetComponent<Image>().sprite = ability;
         //}
-
-        viewUpgradesButton.onClick.AddListener(OpenUpgradeList);
     }
 
-    public void ShowInfo(CharacterData characterData)
+    public override void Close()
     {
-        Setup(characterData);
-        gameObject.SetActive(true);
-    }
-
-    public void Close()
-    {
-        gameObject.SetActive(false);
+        base.Close();
         upgradeList.GetComponent<UpgradeListUI>().Close();
     }
 
     private void OpenUpgradeList()
     {
         if (upgradeList.activeInHierarchy) return;
-        if (characterData.upgradeOptions.Count > 0) upgradeList.GetComponent<UpgradeListUI>().ShowOptionList(characterData.upgradeOptions);
+        if (characterData.upgradeOptions.Count > 0) upgradeList.GetComponent<UpgradeListUI>().Show(characterData.upgradeOptions);
     }
 }
