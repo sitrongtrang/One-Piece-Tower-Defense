@@ -38,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &745037914154369482
@@ -94,7 +94,6 @@ MonoBehaviour:
   closeButton: {fileID: 0}
   characterPortrait: {fileID: 3908516738832716325}
   characterName: {fileID: 5320748595349867156}
-  slider: {fileID: 0}
 --- !u!1 &895635243790253672
 GameObject:
   m_ObjectHideFlags: 0

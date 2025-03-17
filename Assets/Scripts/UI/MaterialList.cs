@@ -61,7 +61,7 @@ public class MaterialList : Panel
 
     private void AdjustSlider()
     {
-        float contentWidth = contentPanel.GetComponent<RectTransform>().sizeDelta.x;
+        float contentWidth = characters.Count * materialPrefab.GetComponent<RectTransform>().sizeDelta.x;
         float viewportWidth = scrollRect.viewport.rect.width;
 
         slider.gameObject.SetActive(contentWidth > viewportWidth);
