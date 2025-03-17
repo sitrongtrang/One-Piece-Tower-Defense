@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Nami
   m_EditorClassIdentifier: 
   characterPortrait: {fileID: 21300000, guid: fcfef441fe227524588c585c192aa4ed, type: 3}
-  characterName: 
+  characterName: Nami
   rarity: 4
   attackPower: 0
   attackSpeed: 0

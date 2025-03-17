@@ -8,6 +8,7 @@ public class UpgradePanel : Panel
     [SerializeField] private List<Button> upgradeMaterials;
     [SerializeField] private Image target;
     [SerializeField] private Button upgradeButton;
+    [SerializeField] private GameObject materialPanel;
 
     private UpgradeRequirement requirement;
     private Canvas canvas;
@@ -43,14 +44,20 @@ public class UpgradePanel : Panel
             {
                 Rarity materialRarity = requirement.obligatoryRequirements[0].rarity;
                 upgradeMaterials[i].image.color = GameManager.Instance.RarityToColor[materialRarity];
-                upgradeMaterials[i].onClick.AddListener(() => ChooseMaterial(materialRarity));
+                upgradeMaterials[i].onClick.AddListener(() => ViewMaterials(materialRarity));
             }
         }
     }
 
-    private void ChooseMaterial(Rarity rarity)
+    public override void Close()
     {
+        base.Close();
+        materialPanel.GetComponent<MaterialList>().Close();
+    }
 
+    private void ViewMaterials(Rarity rarity)
+    {
+        materialPanel.GetComponent<MaterialList>().Show(rarity);
     }
 
     private void Upgrade()
