@@ -75,17 +75,6 @@ public class GameManager : MonoBehaviour
         basicCharacterData = Instantiate(basicCharacterPrefab).GetComponent<TowerCharacter>().characterData;
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ViewCharacterInfo()
     {
         CharacterData data;

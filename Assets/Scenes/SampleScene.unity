@@ -4119,9 +4119,6 @@ MonoBehaviour:
   panels:
   - {fileID: 7441183834361377464}
   - {fileID: 1691180979}
-  buttons:
-  - {fileID: 1357081754}
-  - {fileID: 469598948}
 --- !u!1 &1958569959
 GameObject:
   m_ObjectHideFlags: 0

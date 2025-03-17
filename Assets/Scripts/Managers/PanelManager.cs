@@ -3,17 +3,26 @@ using UnityEngine.UI;
 
 public class PanelManager : MonoBehaviour
 {
-    public GameObject[] panels; 
-    public Button[] buttons; 
+    public static PanelManager Instance { get; private set; }
 
-    public void OpenPanel(int index)
+    [SerializeField] private GameObject[] panels;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void OpenPanel(Panel panel)
     {
         for (int i = 0; i < panels.Length; i++)
         {
-            if (i == index)
-                panels[i].SetActive(true); 
-            else
-                panels[i].SetActive(false); 
+            if (panels[i] != panel.gameObject && panels[i].activeInHierarchy)
+                panels[i].GetComponent<Panel>().Close(); 
         }
     }
 
@@ -21,7 +30,7 @@ public class PanelManager : MonoBehaviour
     {
         foreach (GameObject panel in panels)
         {
-            panel.SetActive(false);
+            panel.GetComponent<Panel>().Close();
         }
     }
 }

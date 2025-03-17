@@ -40,6 +40,12 @@ public class RecruitPanel : Panel
         }
     }
 
+    public override void Show(object data)
+    {
+        base.Show(data);
+        PanelManager.Instance.OpenPanel(this);
+    }
+
     public void Recruit(int num)
     {
         for (int i = 0; i < num; i++)

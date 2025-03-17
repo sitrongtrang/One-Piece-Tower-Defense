@@ -48,6 +48,12 @@ public class CharacterCardUI : Panel
         //}
     }
 
+    public override void Show(object data)
+    {
+        base.Show(data);
+        PanelManager.Instance.OpenPanel(this);
+    }
+
     public override void Close()
     {
         base.Close();
