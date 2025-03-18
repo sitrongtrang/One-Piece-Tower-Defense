@@ -8,10 +8,9 @@ public class UpgradeOption : Panel
 {
     [SerializeField] private Button characterPortrait;
     [SerializeField] private TextMeshProUGUI characterName;
+
     private UpgradeRequirement requirement;
     private GameObject upgradePanel;
-
-    private float padding = 10f;
 
     protected override void Start()
     {
@@ -22,6 +21,7 @@ public class UpgradeOption : Panel
     protected override void Setup(object data)
     {
         if (!(data is UpgradeRequirement requirement)) return;
+
         this.requirement = requirement;
         characterPortrait.GetComponent<Image>().sprite = requirement.upgradeTarget.characterPortrait;
         characterName.text = requirement.upgradeTarget.characterName;

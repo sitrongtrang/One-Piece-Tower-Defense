@@ -13,11 +13,11 @@ public class RecruitInfoPanel : Panel
 
     [SerializeField] private GameObject recruitPanel;
 
-    private DataSlotInfo recruitInfo;
+    private SlotInfo recruitInfo;
 
     protected override void Setup(object data)
     {
-        if (!(data is DataSlotInfo character)) return;
+        if (!(data is SlotInfo character)) return;
 
         recruitInfo = character;
         characterPortrait.sprite = recruitInfo.data.characterPortrait;
@@ -32,12 +32,12 @@ public class RecruitInfoPanel : Panel
 
     public void Recruit()
     {
-        if (GameManager.Instance.ownedCharacters.Contains(recruitInfo.data))
+        if (GameManager.Instance.characterInventory.Contains(recruitInfo.data))
         {
             Debug.Log("Already own character");
         } else
         {
-            GameManager.Instance.ownedCharacters.Add(recruitInfo.data);
+            GameManager.Instance.characterInventory.Add(recruitInfo.data);
             recruitInfo.data = null;
             recruitPanel.GetComponent<RecruitPanel>().RemoveSlot(recruitInfo.slotNum);
         }

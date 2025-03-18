@@ -1,12 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.IO;
 
+// Rarity system
 public enum Rarity
 {
     Common,
@@ -36,12 +35,13 @@ public class EnumHelper
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public Dictionary<Rarity, Color> RarityToColor;
+    public const int numCharEachPage = 6;
+
     public GameObject basicCharacterPrefab;
     public CharacterData basicCharacterData;
 
-    public Dictionary<Rarity, Color> RarityToColor;
-
-    public List<CharacterData> ownedCharacters;
+    public List<CharacterData> characterInventory;
     public List<CharacterData> poolCharacters;
 
     [SerializeField] private GameObject recruitPanel;
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        RarityToColor = new Dictionary<Rarity, Color>();
+        RarityToColor = new();
         RarityToColor.Add(Rarity.Common, Color.white);
         RarityToColor.Add(Rarity.Uncommon, Color.green);
         RarityToColor.Add(Rarity.Rare, Color.blue);
@@ -69,8 +69,8 @@ public class GameManager : MonoBehaviour
         RarityToColor.Add(Rarity.Extreme, new Color(255, 131, 83));
         RarityToColor.Add(Rarity.Legendary, new Color(255, 94, 32));
 
+        // Load character data into character pool
         LoadCharacterKeysFromFile();
-
         poolCharacters = new List<CharacterData>();
         foreach (string key in allCharacterKeys)
         {
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         }
 
         basicCharacterData = Instantiate(basicCharacterPrefab).GetComponent<TowerCharacter>().characterData;
-        ownedCharacters.Add(basicCharacterData);
+        characterInventory.Add(basicCharacterData);
     }
 
     private void LoadCharacterKeysFromFile()
@@ -97,29 +97,24 @@ public class GameManager : MonoBehaviour
             allCharacterKeys = new List<string>(File.ReadAllLines(path));
             Debug.Log($"Loaded {allCharacterKeys.Count} character keys from file.");
         }
-        else
-        {
-            Debug.LogError("Character keys file not found!");
-        }
+        else Debug.LogError("Character keys file not found!");
     }
 
+
+    // View player's character inventory
     public void ViewCharacters(int index)
     {
-        if (index >= ownedCharacters.Count || characterPanel.activeInHierarchy) return;
-        List<CharacterData> characters = new List<CharacterData>();
-        for (int  i = 0; i < 6; i++)
+        if (index >= characterInventory.Count || characterPanel.activeInHierarchy) return;
+        List<CharacterData> characters = new();
+        for (int  i = 0; i < numCharEachPage; i++)
         {
-            if (index + i < ownedCharacters.Count)
-            {
-                characters.Add(ownedCharacters[index + i]);
-            } else
-            {
-                characters.Add(null);
-            }
+            if (index + i < characterInventory.Count) characters.Add(characterInventory[index + i]);
+            else characters.Add(null);
         }
         characterPanel.GetComponent<CharacterPanel>().Show(characters);
     }
 
+    // Recruit characters
     public void ViewRecruits()
     {
         if (recruitPanel.activeInHierarchy) return;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpgradeListUI : Panel
+public class UpgradeList : Panel
 {
     [SerializeField] private GameObject characterCard;
     [SerializeField] private GameObject upgradeOptionPrefab;
@@ -11,15 +11,12 @@ public class UpgradeListUI : Panel
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private Slider slider;
 
-    private RectTransform upgradeListRect;
-    private List<GameObject> upgradeOptionPool = new List<GameObject>();
-    private List<UpgradeRequirement> upgradeOptions = new List<UpgradeRequirement>();
-    private float padding = 10f;
+    private List<UpgradeRequirement> upgradeOptions = new();
+    private List<GameObject> upgradeOptionPool = new();
 
     protected override void Start()
     {
         base.Start();
-        upgradeListRect = GetComponent<RectTransform>();
         slider.onValueChanged.AddListener(UpdateScrollPosition);
     }
 
@@ -27,20 +24,19 @@ public class UpgradeListUI : Panel
     {
         if (!(data is List<UpgradeRequirement> requirements)) return;
 
-        upgradeOptions = new List<UpgradeRequirement>();
-        foreach (GameObject option in upgradeOptionPool)
-        {
-            Destroy(option);
-        }
-        upgradeOptionPool.Clear();
+        upgradeOptions = new();
 
-        for (int i = 0; i < requirements.Count; i++)
+        for (int i = 0; i < requirements.Count; i++) upgradeOptions.Add(requirements[i]);
+
+        // Instantiate more game objects if pool is not enough, otherwise reuse old objects
+        for (int i = upgradeOptionPool.Count; i < upgradeOptions.Count; i++)
         {
-            upgradeOptions.Add(requirements[i]);
-            GameObject upgradeOption = Instantiate(upgradeOptionPrefab, contentPanel);
-            upgradeOption.GetComponent<UpgradeOption>().Show(requirements[i]);
-            upgradeOptionPool.Add(upgradeOption);
+            GameObject newOption = Instantiate(upgradeOptionPrefab, contentPanel);
+            newOption.SetActive(false);
+            upgradeOptionPool.Add(newOption);
         }
+
+        for (int i = 0; i < upgradeOptions.Count; i++) upgradeOptionPool[i].GetComponent<UpgradeOption>().Show(upgradeOptions[i]);
 
         AdjustSlider();
     }
@@ -48,10 +44,7 @@ public class UpgradeListUI : Panel
     public override void Close()
     {
         base.Close();
-        foreach (GameObject option in upgradeOptionPool)
-        {
-            option.GetComponent<UpgradeOption>().Close();
-        }
+        foreach (GameObject option in upgradeOptionPool) option.GetComponent<UpgradeOption>().Close();
     }
 
     private void AdjustSlider()

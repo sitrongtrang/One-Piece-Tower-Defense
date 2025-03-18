@@ -53,7 +53,7 @@ public class RecruitPanel : Panel
 
     public void ViewRecruitInfo(int index)
     {
-        if (recruitedChars[index] != null) recruitInfoPanel.GetComponent<RecruitInfoPanel>().Show(new DataSlotInfo(recruitedChars[index], index));
+        if (recruitedChars[index] != null) recruitInfoPanel.GetComponent<RecruitInfoPanel>().Show(new SlotInfo(recruitedChars[index], index));
         else recruitInfoPanel.GetComponent<RecruitInfoPanel>().Close();
     }
 

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PanelManager : MonoBehaviour
 {
@@ -21,16 +20,13 @@ public class PanelManager : MonoBehaviour
     {
         for (int i = 0; i < panels.Length; i++)
         {
-            if (panels[i] != panel && panels[i].activeInHierarchy)
-                panels[i].GetComponent<Panel>().Close(); 
+            // When a panel opens, close all other panels
+            if (panels[i] != panel && panels[i].activeInHierarchy) panels[i].GetComponent<Panel>().Close(); 
         }
     }
 
     public void CloseAllPanels()
     {
-        foreach (GameObject panel in panels)
-        {
-            panel.GetComponent<Panel>().Close();
-        }
+        foreach (GameObject panel in panels) panel.GetComponent<Panel>().Close();
     }
 }

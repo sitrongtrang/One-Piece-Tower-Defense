@@ -2,10 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CharacterCardUI : Panel
+public class CharacterCard : Panel
 {
-    private CharacterData characterData;
-
     [SerializeField] private Image characterPortrait;
     [SerializeField] private TextMeshProUGUI characterName;
     [SerializeField] private TextMeshProUGUI characterRarity;
@@ -15,13 +13,11 @@ public class CharacterCardUI : Panel
     [SerializeField] private Button viewUpgradesButton;
     [SerializeField] private GameObject upgradeList;
 
+    private CharacterData characterData;
+
     protected override void Start()
     {
-        //base.Start();
-        if (viewUpgradesButton != null)
-        {
-            viewUpgradesButton.onClick.AddListener(OpenUpgradeList);
-        }
+        if (viewUpgradesButton != null) viewUpgradesButton.onClick.AddListener(OpenUpgradeList);
     }
 
     protected override void Setup(object data)
@@ -32,7 +28,6 @@ public class CharacterCardUI : Panel
         characterPortrait.sprite = character.characterPortrait;
         characterName.text = character.characterName;
         characterRarity.text = character.rarity.ToString();
-
         statsText.text = $"Attack: {character.attackPower}\n" +
                          $"Speed: {character.attackSpeed}\n" +
                          $"Range: {character.range}\n" +
@@ -51,12 +46,14 @@ public class CharacterCardUI : Panel
     public override void Close()
     {
         base.Close();
-        upgradeList.GetComponent<UpgradeListUI>().Close();
+        upgradeList.GetComponent<UpgradeList>().Close();
     }
 
+
+    // View this character's possible upgrades
     private void OpenUpgradeList()
     {
         if (upgradeList.activeInHierarchy) return;
-        if (characterData.upgradeOptions.Count > 0) upgradeList.GetComponent<UpgradeListUI>().Show(characterData.upgradeOptions);
+        if (characterData.upgradeOptions.Count > 0) upgradeList.GetComponent<UpgradeList>().Show(characterData.upgradeOptions);
     }
 }

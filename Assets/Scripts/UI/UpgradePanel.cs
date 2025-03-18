@@ -5,51 +5,57 @@ using UnityEngine.UI;
 
 public class UpgradePanel : Panel
 {
-    [SerializeField] private List<Button> upgradeMaterials;
+    [SerializeField] private Button[] upgradeMaterials;
     [SerializeField] private Image target;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private GameObject materialPanel;
 
     private UpgradeRequirement requirement;
     private Canvas canvas;
-
-    public List<CharacterData> chosenMaterial;
     private int choosingSlot;
+    private const int numMaterials = 5;
+    private CharacterData[] chosenMaterial = new CharacterData[numMaterials];
 
     protected override void Start()
     {
         base.Start();
+        for (int i = 0; i < numMaterials; i++) chosenMaterial[i] = null;
         canvas = FindObjectOfType<Canvas>();
         upgradeButton.onClick.AddListener(Upgrade);
-        chosenMaterial = new List<CharacterData>();
     }
 
     protected override void Setup(object data)
     {
         if (!(data is UpgradeRequirement requirement)) return;
 
-        chosenMaterial = new List<CharacterData>();
         choosingSlot = -1;
-
         this.requirement = requirement;
+
         Vector3 middleOfCanvas = canvas.transform.position;
         transform.position = middleOfCanvas;
+
         target.sprite = requirement.upgradeTarget.characterPortrait;
-        for (int i = 0; i < upgradeMaterials.Count; i++)
+        for (int i = 0; i < numMaterials; i++)
         {
+            upgradeMaterials[i].onClick.RemoveAllListeners();
             if (i < requirement.obligatoryRequirements.Count)
             {
                 upgradeMaterials[i].image.sprite = requirement.obligatoryRequirements[i].characterPortrait;
-                if (!GameManager.Instance.ownedCharacters.Contains(requirement.obligatoryRequirements[i]))
+
+                if (!GameManager.Instance.characterInventory.Contains(requirement.obligatoryRequirements[i]))
                 {
+                    chosenMaterial[i] = null;
                     upgradeMaterials[i].interactable = false;
-                } else
-                {
-                    upgradeMaterials[i].interactable = true;
-                    chosenMaterial.Add(requirement.obligatoryRequirements[i]);
                 }
+                else
+                {
+                    chosenMaterial[i] = requirement.obligatoryRequirements[i];
+                    upgradeMaterials[i].interactable = true;
+                }
+
             } else
             {
+                chosenMaterial[i] = null;
                 int localIndex = i;
                 Rarity materialRarity = requirement.obligatoryRequirements[0].rarity;
                 upgradeMaterials[i].image.color = GameManager.Instance.RarityToColor[materialRarity];
@@ -74,38 +80,40 @@ public class UpgradePanel : Panel
     {
         upgradeMaterials[choosingSlot].image.color = Color.white;
         upgradeMaterials[choosingSlot].image.sprite = material.characterPortrait;
-        chosenMaterial.Add(material);
+        chosenMaterial[choosingSlot] = material;
         choosingSlot = -1;
         materialPanel.GetComponent<MaterialList>().Close();
+    }
+
+
+    // Check if material is already chosen
+    public bool IsChosenMaterial(CharacterData material)
+    {
+        for (int i = 0; i < numMaterials; i++)
+        {
+            if (chosenMaterial[i] == material) return true;
+        }
+        return false;
     }
 
     private void Upgrade()
     {
         if (CheckUpgradeRequirements())
         {
-            for (int i = 0; i < requirement.obligatoryRequirements.Count; i++) {
-                GameManager.Instance.ownedCharacters.Remove(requirement.obligatoryRequirements[i]);
+            // Satisfy requirement, remove all material from player's inventory, and add the upgraded character to the player's inventory
+            for (int i = 0; i < numMaterials; i++) {
+                GameManager.Instance.characterInventory.Remove(chosenMaterial[i]);
             }
-            GameManager.Instance.ownedCharacters.Add(requirement.upgradeTarget);
+            GameManager.Instance.characterInventory.Add(requirement.upgradeTarget);
             PanelManager.Instance.CloseAllPanels();
             GameManager.Instance.ViewCharacters(0);
-        } else
-        {
-            Debug.Log("Not enough requirement");
-        }
+        } else Debug.Log("Not enough requirement");
     }
 
     private bool CheckUpgradeRequirements()
     {
-        for (int i = 0; i < requirement.obligatoryRequirements.Count; i++)
-        {
-            if (!upgradeMaterials[i].interactable) return false;
-        }
+        for (int i = 0; i < numMaterials; i++) if (chosenMaterial[i] == null) return false;
 
-        for (int i = requirement.obligatoryRequirements.Count; i < upgradeMaterials.Count; i++)
-        {
-            if (upgradeMaterials[i].image.sprite == null) return false;
-        }
         return true;
     }
 }

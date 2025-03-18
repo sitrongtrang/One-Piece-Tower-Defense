@@ -12,8 +12,6 @@ public class MaterialOption : Panel
     private CharacterData material;
     private GameObject materialPanel;
 
-    private float padding = 10f;
-
     protected override void Start()
     {
         characterPortrait.onClick.AddListener(ChooseMaterial);
@@ -22,6 +20,7 @@ public class MaterialOption : Panel
     protected override void Setup(object data)
     {
         if (!(data is CharacterData character)) return;
+
         this.material = character;
         characterPortrait.GetComponent<Image>().sprite = character.characterPortrait;
         characterName.text = character.characterName;

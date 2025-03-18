@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,8 +12,8 @@ public class MaterialList : Panel
 
     [SerializeField] private GameObject upgradePanel;
 
-    private List<CharacterData> characters = new List<CharacterData>();
-    private List<GameObject> materialOptionPool = new List<GameObject>();
+    private List<CharacterData> characters = new();
+    private List<GameObject> materialOptionPool = new();
 
     protected override void Start()
     {
@@ -26,26 +27,24 @@ public class MaterialList : Panel
 
         characters = new List<CharacterData>();
 
-        foreach (GameObject option in materialOptionPool)
-        {
-            Destroy(option);
-        }
-        materialOptionPool.Clear();
-
-        foreach (CharacterData characterData in GameManager.Instance.ownedCharacters)
+        foreach (CharacterData characterData in GameManager.Instance.characterInventory)
         {
             if (characterData.rarity == rarity)
             {
-                if (!upgradePanel.GetComponent<UpgradePanel>().chosenMaterial.Contains(characterData))
-                {
-                    characters.Add(characterData);
-                    GameObject newOption = Instantiate(materialPrefab, contentPanel);
-                    newOption.GetComponent<MaterialOption>().setMaterialPanel(gameObject);
-                    newOption.GetComponent<MaterialOption>().Show(characterData);
-                    materialOptionPool.Add(newOption);
-                }      
+                if (!upgradePanel.GetComponent<UpgradePanel>().IsChosenMaterial(characterData)) characters.Add(characterData);  
             }
         }
+
+        // Instantiate more game objects if pool is not enough, otherwise reuse old objects
+        for (int i = materialOptionPool.Count; i < characters.Count; i++)
+        {
+            GameObject newOption = Instantiate(materialPrefab, contentPanel);
+            newOption.GetComponent<MaterialOption>().setMaterialPanel(gameObject);
+            newOption.SetActive(false);
+            materialOptionPool.Add(newOption);
+        }
+
+        for (int i = 0; i < characters.Count; i++) materialOptionPool[i].GetComponent<MaterialOption>().Show(characters[i]);
 
         AdjustSlider();
     }
@@ -53,10 +52,12 @@ public class MaterialList : Panel
     public override void Close()
     {
         base.Close();
-        foreach (GameObject option in materialOptionPool)
-        {
-            option.GetComponent<MaterialOption>().Close();
-        }
+        foreach (GameObject option in materialOptionPool) option.GetComponent<MaterialOption>().Close();
+    }
+
+    public void ChooseMaterial(CharacterData material)
+    {
+        upgradePanel.GetComponent<UpgradePanel>().ChooseMaterial(material);
     }
 
     private void AdjustSlider()
@@ -77,10 +78,5 @@ public class MaterialList : Panel
     private void UpdateScrollPosition(float value)
     {
         scrollRect.horizontalNormalizedPosition = value;
-    }
-
-    public void ChooseMaterial(CharacterData material)
-    {
-        upgradePanel.GetComponent<UpgradePanel>().ChooseMaterial(material);
     }
 }
