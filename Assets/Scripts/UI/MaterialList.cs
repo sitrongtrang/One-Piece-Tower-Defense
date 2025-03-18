@@ -11,13 +11,12 @@ public class MaterialList : Panel
 
     [SerializeField] private GameObject upgradePanel;
 
-    private List<CharacterData> characters;
+    private List<CharacterData> characters = new List<CharacterData>();
     private List<GameObject> materialOptionPool = new List<GameObject>();
 
     protected override void Start()
     {
         base.Start();
-        characters = new List<CharacterData>();
         slider.onValueChanged.AddListener(UpdateScrollPosition);  
     }
 
@@ -49,11 +48,6 @@ public class MaterialList : Panel
         }
 
         AdjustSlider();
-    }
-
-    public override void Show(object data)
-    {
-        base.Show(data);
     }
 
     public override void Close()

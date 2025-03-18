@@ -26,8 +26,6 @@ public class EnumHelper
     {
         Rarity[] values = (Rarity[])Rarity.GetValues(typeof(Rarity));
         int currentIndex = Array.IndexOf(values, current);
-
-        // If current is the first value, return the last one (looping behavior)
         if (currentIndex <= 0)
             return values[values.Length - 1];
 

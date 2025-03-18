@@ -7,50 +7,42 @@ public class UpgradeListUI : Panel
 {
     [SerializeField] private GameObject characterCard;
     [SerializeField] private GameObject upgradeOptionPrefab;
-    private RectTransform upgradeListRect;
+    [SerializeField] private Transform contentPanel;
+    [SerializeField] private ScrollRect scrollRect;
+    [SerializeField] private Slider slider;
 
+    private RectTransform upgradeListRect;
     private List<GameObject> upgradeOptionPool = new List<GameObject>();
+    private List<UpgradeRequirement> upgradeOptions = new List<UpgradeRequirement>();
     private float padding = 10f;
-    private float optionWidth;
 
     protected override void Start()
     {
         base.Start();
         upgradeListRect = GetComponent<RectTransform>();
-        optionWidth = upgradeOptionPrefab.GetComponent<RectTransform>().sizeDelta.x;
+        slider.onValueChanged.AddListener(UpdateScrollPosition);
     }
 
     protected override void Setup(object data)
     {
         if (!(data is List<UpgradeRequirement> requirements)) return;
-        float totalWidth = requirements.Count * (optionWidth + padding) + padding;
 
-        float currentPanelWidth = upgradeListRect.sizeDelta.x;
-        if (totalWidth > currentPanelWidth)
+        upgradeOptions = new List<UpgradeRequirement>();
+        foreach (GameObject option in upgradeOptionPool)
         {
-            upgradeListRect.sizeDelta = new Vector2(totalWidth, upgradeListRect.sizeDelta.y);
+            Destroy(option);
         }
-
-        float currentX = padding + optionWidth / 2;
-
-        for (int i = upgradeOptionPool.Count; i < requirements.Count; i++)
-        {
-            GameObject newOption = Instantiate(upgradeOptionPrefab, transform);
-            newOption.SetActive(false);
-            upgradeOptionPool.Add(newOption);
-        }
+        upgradeOptionPool.Clear();
 
         for (int i = 0; i < requirements.Count; i++)
         {
-            GameObject upgradeOption = upgradeOptionPool[i];
-
-            RectTransform optionRect = upgradeOption.GetComponent<RectTransform>();
-
-            optionRect.anchoredPosition = new Vector2(currentX, 0);
-            currentX += optionWidth + padding;
-
+            upgradeOptions.Add(requirements[i]);
+            GameObject upgradeOption = Instantiate(upgradeOptionPrefab, contentPanel);
             upgradeOption.GetComponent<UpgradeOption>().Show(requirements[i]);
+            upgradeOptionPool.Add(upgradeOption);
         }
+
+        AdjustSlider();
     }
 
     public override void Close()
@@ -60,5 +52,25 @@ public class UpgradeListUI : Panel
         {
             option.GetComponent<UpgradeOption>().Close();
         }
+    }
+
+    private void AdjustSlider()
+    {
+        float contentWidth = upgradeOptions.Count * upgradeOptionPrefab.GetComponent<RectTransform>().sizeDelta.x;
+        float viewportWidth = scrollRect.viewport.rect.width;
+
+        slider.gameObject.SetActive(contentWidth > viewportWidth);
+
+        if (contentWidth > viewportWidth)
+        {
+            slider.minValue = 0;
+            slider.maxValue = 1;
+            slider.value = 0;
+        }
+    }
+
+    private void UpdateScrollPosition(float value)
+    {
+        scrollRect.horizontalNormalizedPosition = value;
     }
 }

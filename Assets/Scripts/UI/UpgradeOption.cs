@@ -9,13 +9,14 @@ public class UpgradeOption : Panel
     [SerializeField] private Button characterPortrait;
     [SerializeField] private TextMeshProUGUI characterName;
     private UpgradeRequirement requirement;
-    [SerializeField] private GameObject upgradePanel;
+    private GameObject upgradePanel;
 
     private float padding = 10f;
 
     protected override void Start()
     {
         characterPortrait.onClick.AddListener(OpenUpgradePanel);
+        upgradePanel = GameObject.Find("Canvas/CharacterPanel/CharacterCard/UpgradePanel");
     }
 
     protected override void Setup(object data)
