@@ -16,67 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: f18dfd021284da34c89d89813f9371fb
-  m_SerializeEntries:
-  - m_GUID: 6e1c07d2e582a884db87a3acf92b4b3a
-    m_Address: Character_Rayleigh
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 7128d09cdc6be6744a45444ac6e733dc
-    m_Address: Character_Kuma(Heroic)
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: f69b30f814f0b254ca0e7561d33aef74
-    m_Address: Character_Kuma
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 3c913f329716cbf4b810a7bdb9f5ffb8
-    m_Address: Character_Chopper
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 081cebdb61cdf224392b5392d166909f
-    m_Address: Character_Luffy
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 3dd16b7f2be197944aa26cd9c5535163
-    m_Address: Character_Luffy(New World)
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 56f5602f28d750147a5ea2774a1ce50d
-    m_Address: Character_Luffy(Boundman)
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 7d1fe54c48848d8479006b133aa220a1
-    m_Address: Character_Luffy(Snakeman)
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 2bf2b3107655409468bd93791990df64
-    m_Address: Character_Luffy(Tankman)
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 48409aeba1e5dcf48809ed540d43f497
-    m_Address: Character_Luffy(Nika)
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: d2ae3db9c0cbc0e41893c2132b2b7412
-    m_Address: Character_Nami
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 535c294205fca0344bb55edf14804c55
-    m_Address: Character_Robin
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 1230c0bd8e64ffd4fba0f437a43ec823
-    m_Address: Character_Sanji
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 61d7ea2247bb3c945a1a7967330a6588
-    m_Address: Character_Usopp
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 35d721fdaf9a77f4ab4babf0409fc00e
-    m_Address: Character_Zoro
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 97b7620d8857e6d438c098827bbbc950, type: 2}
   m_SchemaSet:

@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Character Data
+  m_EditorClassIdentifier: 
+  m_GroupName: Character Data
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 4106b53c7d5089f4ab858cf8afc2262c
+  m_SerializeEntries:
+  - m_GUID: 3c913f329716cbf4b810a7bdb9f5ffb8
+    m_Address: Assets/ScriptableObjects/Characters/Chopper.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 7128d09cdc6be6744a45444ac6e733dc
+    m_Address: Assets/ScriptableObjects/Characters/Kuma (Heroic).asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: f69b30f814f0b254ca0e7561d33aef74
+    m_Address: Assets/ScriptableObjects/Characters/Kuma.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 081cebdb61cdf224392b5392d166909f
+    m_Address: Assets/ScriptableObjects/Characters/Luffy.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 56f5602f28d750147a5ea2774a1ce50d
+    m_Address: Assets/ScriptableObjects/Characters/LuffyBoundman.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 3dd16b7f2be197944aa26cd9c5535163
+    m_Address: Assets/ScriptableObjects/Characters/LuffyNewWorld.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 7d1fe54c48848d8479006b133aa220a1
+    m_Address: Assets/ScriptableObjects/Characters/LuffySnakeman.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 2bf2b3107655409468bd93791990df64
+    m_Address: Assets/ScriptableObjects/Characters/LuffyTankman.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: d2ae3db9c0cbc0e41893c2132b2b7412
+    m_Address: Assets/ScriptableObjects/Characters/Nami.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 48409aeba1e5dcf48809ed540d43f497
+    m_Address: Assets/ScriptableObjects/Characters/NikaLuffy.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 6e1c07d2e582a884db87a3acf92b4b3a
+    m_Address: Assets/ScriptableObjects/Characters/Rayleigh.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 535c294205fca0344bb55edf14804c55
+    m_Address: Assets/ScriptableObjects/Characters/Robin.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 1230c0bd8e64ffd4fba0f437a43ec823
+    m_Address: Assets/ScriptableObjects/Characters/Sanji.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 61d7ea2247bb3c945a1a7967330a6588
+    m_Address: Assets/ScriptableObjects/Characters/Usopp.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 35d721fdaf9a77f4ab4babf0409fc00e
+    m_Address: Assets/ScriptableObjects/Characters/Zoro.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 97b7620d8857e6d438c098827bbbc950, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 28536d8f9599915478591e8f3a59382e, type: 2}
+    - {fileID: 11400000, guid: 23bda88a3825137499306cd7d8e2970e, type: 2}

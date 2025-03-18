@@ -38,16 +38,16 @@ public class RecruitPanel : Panel
 
     public void Recruit(int num)
     {
+        for (int i = 0; i < recruits.Count; i++)
+        {
+            if (recruitedChars[i] != null) GameManager.Instance.ReleaseCharacter(recruitedChars[i]);
+        }
         for (int i = 0; i < num; i++)
         {
-            int index = Random.Range(0, GameManager.Instance.poolCharacters.Count);
-            recruitedChars[i] = GameManager.Instance.poolCharacters[index];
+            int index = i;
+            GameManager.Instance.Recruit(characterData => { recruitedChars[index] = characterData; Show(num); });
         }
-        for (int i = num; i < recruits.Count; i++)
-        {
-            recruitedChars[i] = null;
-        }
-        Show(num);
+        for (int i = num; i < recruits.Count; i++) recruitedChars[i] = null;
         recruitInfoPanel.GetComponent<RecruitInfoPanel>().Close();
     }
 

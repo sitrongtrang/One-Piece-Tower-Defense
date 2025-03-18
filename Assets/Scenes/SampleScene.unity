@@ -3159,8 +3159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicCharacterPrefab: {fileID: 2547617054977907417, guid: 31ff2343ae3806e43b75265d6b8a74dd, type: 3}
   basicCharacterData: {fileID: 0}
-  ownedCharacters: []
-  poolCharacters: []
+  characterInventory: []
   recruitPanel: {fileID: 1691180979}
   characterPanel: {fileID: 1306568838}
 --- !u!4 &1093190940
@@ -8189,7 +8188,6 @@ MonoBehaviour:
   target: {fileID: 3709796719715054923}
   upgradeButton: {fileID: 1501821617969327729}
   materialPanel: {fileID: 303345813408403391}
-  chosenMaterial: []
 --- !u!114 &1023715858507396578
 MonoBehaviour:
   m_ObjectHideFlags: 0

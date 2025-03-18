@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -42,12 +42,14 @@ public class GameManager : MonoBehaviour
     public CharacterData basicCharacterData;
 
     public List<CharacterData> characterInventory;
-    public List<CharacterData> poolCharacters;
 
     [SerializeField] private GameObject recruitPanel;
     [SerializeField] private GameObject characterPanel;
 
-    private List<string> allCharacterKeys = new();
+    private List<AssetReferenceT<CharacterData>> allCharacterReferences = new();
+    private string characterLabel = "CharacterData";
+    private Dictionary<CharacterData, AsyncOperationHandle<CharacterData>> loadedCharacters = new();
+
 
     private void Awake()
     {
@@ -70,36 +72,32 @@ public class GameManager : MonoBehaviour
         RarityToColor.Add(Rarity.Legendary, new Color(255, 94, 32));
 
         // Load character data into character pool
-        LoadCharacterKeysFromFile();
-        poolCharacters = new List<CharacterData>();
-        foreach (string key in allCharacterKeys)
-        {
-            Addressables.LoadAssetAsync<CharacterData>(key).Completed += handle =>
-            {
-                if (handle.Status == AsyncOperationStatus.Succeeded)
-                {
-                    CharacterData data = handle.Result;
-                    poolCharacters.Add(data);
-                }
-            };
-        }
+        LoadAllCharacterReferences();
 
         basicCharacterData = Instantiate(basicCharacterPrefab).GetComponent<TowerCharacter>().characterData;
         characterInventory.Add(basicCharacterData);
     }
 
-    private void LoadCharacterKeysFromFile()
+    private void LoadAllCharacterReferences()
     {
-        string path = Path.Combine(Application.streamingAssetsPath, "CharacterKeys.txt");
-
-        if (File.Exists(path))
+        Addressables.LoadResourceLocationsAsync(characterLabel, typeof(CharacterData)).Completed += handle =>
         {
-            allCharacterKeys = new List<string>(File.ReadAllLines(path));
-            Debug.Log($"Loaded {allCharacterKeys.Count} character keys from file.");
-        }
-        else Debug.LogError("Character keys file not found!");
-    }
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                foreach (UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation location in handle.Result)
+                {
+                    AssetReferenceT<CharacterData> assetReference = new AssetReferenceT<CharacterData>(location.PrimaryKey);
+                    allCharacterReferences.Add(assetReference);
+                }
 
+                Debug.Log($"Loaded {allCharacterReferences.Count} character references from Addressables.");
+            }
+            else
+            {
+                Debug.LogError("Failed to load character references.");
+            }
+        };
+    }
 
     // View player's character inventory
     public void ViewCharacters(int index)
@@ -120,4 +118,37 @@ public class GameManager : MonoBehaviour
         if (recruitPanel.activeInHierarchy) return;
         recruitPanel.GetComponent<RecruitPanel>().Show(6);
     }
+
+    public void Recruit(Action<CharacterData> onCharacterLoaded)
+    {
+        if (allCharacterReferences.Count == 0)
+        {
+            Debug.LogError("No characters available in the pool.");
+            return;
+        }
+
+        int index = UnityEngine.Random.Range(0, allCharacterReferences.Count);
+        AssetReferenceT<CharacterData> characterReference = allCharacterReferences[index];
+
+        Addressables.LoadAssetAsync<CharacterData>(characterReference).Completed += handle =>
+        {
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                CharacterData data = handle.Result;
+                loadedCharacters[data] = handle;
+                onCharacterLoaded?.Invoke(data);
+            }
+            else Debug.LogError($"Failed to load character: {characterReference}");
+        };
+    }
+
+    public void ReleaseCharacter(CharacterData characterData)
+    {
+        if (loadedCharacters.TryGetValue(characterData, out var handle))
+        {
+            Addressables.Release(handle);
+            loadedCharacters.Remove(characterData);
+        }
+    }
+
 }
