@@ -8,7 +8,9 @@ public class MaterialOption : Panel
 {
     [SerializeField] private Button characterPortrait;
     [SerializeField] private TextMeshProUGUI characterName;
-    private CharacterData characterData;
+
+    private CharacterData material;
+    private GameObject materialPanel;
 
     private float padding = 10f;
 
@@ -19,14 +21,19 @@ public class MaterialOption : Panel
 
     protected override void Setup(object data)
     {
-        if (!(data is CharacterData characterData)) return;
-        this.characterData = characterData;
-        characterPortrait.GetComponent<Image>().sprite = characterData.characterPortrait;
-        characterName.text = characterData.characterName;
+        if (!(data is CharacterData character)) return;
+        this.material = character;
+        characterPortrait.GetComponent<Image>().sprite = character.characterPortrait;
+        characterName.text = character.characterName;
+    }
+
+    public void setMaterialPanel(GameObject materialPanel)
+    {
+        this.materialPanel = materialPanel;
     }
 
     private void ChooseMaterial()
     {
-        return;
+        materialPanel.GetComponent<MaterialList>().ChooseMaterial(material);
     }
 }

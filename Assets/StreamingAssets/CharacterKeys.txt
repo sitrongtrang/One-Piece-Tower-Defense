@@ -1,0 +1,14 @@
+Character_Luffy
+Character_Luffy(New World)
+Character_Luffy(Boundman)
+Character_Luffy(Snakeman)
+Character_Luffy(Tankman)
+Character_Luffy(Nika)
+Character_Zoro
+Character_Nami
+Character_Usopp
+Character_Sanji
+Character_Chopper
+Character_Rayleigh
+Character_Kuma
+Character_Kuma(Heroic)

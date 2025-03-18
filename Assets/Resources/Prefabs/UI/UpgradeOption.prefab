@@ -884,6 +884,7 @@ MonoBehaviour:
   contentPanel: {fileID: 3925632502534175158}
   scrollRect: {fileID: 1315687575014155803}
   slider: {fileID: 5807324254684839088}
+  upgradePanel: {fileID: 5402016267142802000}
 --- !u!1 &3561764722422968571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,6 +1718,7 @@ MonoBehaviour:
   target: {fileID: 1260812473485746680}
   upgradeButton: {fileID: 3950533151203916482}
   materialPanel: {fileID: 2752021930100316940}
+  chosenMaterial: []
 --- !u!1 &5456607167431732258
 GameObject:
   m_ObjectHideFlags: 0

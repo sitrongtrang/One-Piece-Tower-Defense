@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using System.IO;
 
 public enum Rarity
 {
@@ -39,14 +42,14 @@ public class GameManager : MonoBehaviour
     public CharacterData basicCharacterData;
 
     public Dictionary<Rarity, Color> RarityToColor;
-    public List<CharacterData> characters;
-
-    private string prefabFolderPath = "Prefabs/Towers";
 
     public List<CharacterData> ownedCharacters;
+    public List<CharacterData> poolCharacters;
 
     [SerializeField] private GameObject recruitPanel;
     [SerializeField] private GameObject characterPanel;
+
+    private List<string> allCharacterKeys = new();
 
     private void Awake()
     {
@@ -68,15 +71,38 @@ public class GameManager : MonoBehaviour
         RarityToColor.Add(Rarity.Extreme, new Color(255, 131, 83));
         RarityToColor.Add(Rarity.Legendary, new Color(255, 94, 32));
 
-        GameObject[] prefabs = Resources.LoadAll<GameObject>(prefabFolderPath);
-        foreach (GameObject prefab in prefabs)
+        LoadCharacterKeysFromFile();
+
+        poolCharacters = new List<CharacterData>();
+        foreach (string key in allCharacterKeys)
         {
-            CharacterData data = Instantiate(prefab).GetComponent<TowerCharacter>().characterData;
-            characters.Add(data);
+            Addressables.LoadAssetAsync<CharacterData>(key).Completed += handle =>
+            {
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    CharacterData data = handle.Result;
+                    poolCharacters.Add(data);
+                }
+            };
         }
 
         basicCharacterData = Instantiate(basicCharacterPrefab).GetComponent<TowerCharacter>().characterData;
         ownedCharacters.Add(basicCharacterData);
+    }
+
+    private void LoadCharacterKeysFromFile()
+    {
+        string path = Path.Combine(Application.streamingAssetsPath, "CharacterKeys.txt");
+
+        if (File.Exists(path))
+        {
+            allCharacterKeys = new List<string>(File.ReadAllLines(path));
+            Debug.Log($"Loaded {allCharacterKeys.Count} character keys from file.");
+        }
+        else
+        {
+            Debug.LogError("Character keys file not found!");
+        }
     }
 
     public void ViewCharacters(int index)

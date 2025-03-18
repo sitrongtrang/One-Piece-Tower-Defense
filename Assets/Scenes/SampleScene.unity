@@ -2726,8 +2726,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicCharacterPrefab: {fileID: 2547617054977907417, guid: 31ff2343ae3806e43b75265d6b8a74dd, type: 3}
   basicCharacterData: {fileID: 0}
-  characters: []
   ownedCharacters: []
+  poolCharacters: []
   recruitPanel: {fileID: 1691180979}
   characterPanel: {fileID: 1306568838}
 --- !u!4 &1093190940

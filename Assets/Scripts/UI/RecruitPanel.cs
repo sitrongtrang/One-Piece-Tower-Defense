@@ -4,18 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RecruitInfo
-{
-    public CharacterData data;
-    public int slotNum;
-
-    public RecruitInfo(CharacterData data, int slotNum)
-    {
-        this.data = data;
-        this.slotNum = slotNum;
-    }
-}
-
 public class RecruitPanel : Panel
 {
     [SerializeField] private List<Button> recruits;
@@ -52,8 +40,8 @@ public class RecruitPanel : Panel
     {
         for (int i = 0; i < num; i++)
         {
-            int index = Random.Range(0, GameManager.Instance.characters.Count);
-            recruitedChars[i] = GameManager.Instance.characters[index];
+            int index = Random.Range(0, GameManager.Instance.poolCharacters.Count);
+            recruitedChars[i] = GameManager.Instance.poolCharacters[index];
         }
         for (int i = num; i < recruits.Count; i++)
         {
@@ -65,7 +53,7 @@ public class RecruitPanel : Panel
 
     public void ViewRecruitInfo(int index)
     {
-        if (recruitedChars[index] != null) recruitInfoPanel.GetComponent<RecruitInfoPanel>().Show(new RecruitInfo(recruitedChars[index], index));
+        if (recruitedChars[index] != null) recruitInfoPanel.GetComponent<RecruitInfoPanel>().Show(new DataSlotInfo(recruitedChars[index], index));
         else recruitInfoPanel.GetComponent<RecruitInfoPanel>().Close();
     }
 

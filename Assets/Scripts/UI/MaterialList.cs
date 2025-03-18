@@ -7,7 +7,9 @@ public class MaterialList : Panel
     [SerializeField] private GameObject materialPrefab;  
     [SerializeField] private Transform contentPanel;    
     [SerializeField] private ScrollRect scrollRect;     
-    [SerializeField] private Slider slider;             
+    [SerializeField] private Slider slider;
+
+    [SerializeField] private GameObject upgradePanel;
 
     private List<CharacterData> characters;
     private List<GameObject> materialOptionPool = new List<GameObject>();
@@ -35,10 +37,14 @@ public class MaterialList : Panel
         {
             if (characterData.rarity == rarity)
             {
-                characters.Add(characterData);
-                GameObject newOption = Instantiate(materialPrefab, contentPanel);
-                newOption.GetComponent<MaterialOption>().Show(characterData);
-                materialOptionPool.Add(newOption);
+                if (!upgradePanel.GetComponent<UpgradePanel>().chosenMaterial.Contains(characterData))
+                {
+                    characters.Add(characterData);
+                    GameObject newOption = Instantiate(materialPrefab, contentPanel);
+                    newOption.GetComponent<MaterialOption>().setMaterialPanel(gameObject);
+                    newOption.GetComponent<MaterialOption>().Show(characterData);
+                    materialOptionPool.Add(newOption);
+                }      
             }
         }
 
@@ -77,5 +83,10 @@ public class MaterialList : Panel
     private void UpdateScrollPosition(float value)
     {
         scrollRect.horizontalNormalizedPosition = value;
+    }
+
+    public void ChooseMaterial(CharacterData material)
+    {
+        upgradePanel.GetComponent<UpgradePanel>().ChooseMaterial(material);
     }
 }

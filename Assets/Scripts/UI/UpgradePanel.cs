@@ -13,16 +13,23 @@ public class UpgradePanel : Panel
     private UpgradeRequirement requirement;
     private Canvas canvas;
 
+    public List<CharacterData> chosenMaterial;
+    private int choosingSlot;
+
     protected override void Start()
     {
         base.Start();
         canvas = FindObjectOfType<Canvas>();
         upgradeButton.onClick.AddListener(Upgrade);
+        chosenMaterial = new List<CharacterData>();
     }
 
     protected override void Setup(object data)
     {
         if (!(data is UpgradeRequirement requirement)) return;
+
+        chosenMaterial = new List<CharacterData>();
+        choosingSlot = -1;
 
         this.requirement = requirement;
         Vector3 middleOfCanvas = canvas.transform.position;
@@ -39,12 +46,14 @@ public class UpgradePanel : Panel
                 } else
                 {
                     upgradeMaterials[i].interactable = true;
+                    chosenMaterial.Add(requirement.obligatoryRequirements[i]);
                 }
             } else
             {
+                int localIndex = i;
                 Rarity materialRarity = requirement.obligatoryRequirements[0].rarity;
                 upgradeMaterials[i].image.color = GameManager.Instance.RarityToColor[materialRarity];
-                upgradeMaterials[i].onClick.AddListener(() => ViewMaterials(materialRarity));
+                upgradeMaterials[i].onClick.AddListener(() => ViewMaterials(materialRarity, localIndex));
             }
         }
     }
@@ -55,9 +64,19 @@ public class UpgradePanel : Panel
         materialPanel.GetComponent<MaterialList>().Close();
     }
 
-    private void ViewMaterials(Rarity rarity)
+    private void ViewMaterials(Rarity rarity, int index)
     {
+        choosingSlot = index;
         materialPanel.GetComponent<MaterialList>().Show(rarity);
+    }
+
+    public void ChooseMaterial(CharacterData material)
+    {
+        upgradeMaterials[choosingSlot].image.color = Color.white;
+        upgradeMaterials[choosingSlot].image.sprite = material.characterPortrait;
+        chosenMaterial.Add(material);
+        choosingSlot = -1;
+        materialPanel.GetComponent<MaterialList>().Close();
     }
 
     private void Upgrade()
@@ -68,7 +87,8 @@ public class UpgradePanel : Panel
                 GameManager.Instance.ownedCharacters.Remove(requirement.obligatoryRequirements[i]);
             }
             GameManager.Instance.ownedCharacters.Add(requirement.upgradeTarget);
-            Close();
+            PanelManager.Instance.CloseAllPanels();
+            GameManager.Instance.ViewCharacters(0);
         } else
         {
             Debug.Log("Not enough requirement");

@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class RecruitInfoPanel : Panel
 {
-    private RecruitInfo recruitInfo;
-
     [SerializeField] private Image characterPortrait;
     [SerializeField] private TextMeshProUGUI characterName;
     [SerializeField] private TextMeshProUGUI characterRarity;
@@ -15,9 +13,11 @@ public class RecruitInfoPanel : Panel
 
     [SerializeField] private GameObject recruitPanel;
 
+    private DataSlotInfo recruitInfo;
+
     protected override void Setup(object data)
     {
-        if (!(data is RecruitInfo character)) return;
+        if (!(data is DataSlotInfo character)) return;
 
         recruitInfo = character;
         characterPortrait.sprite = recruitInfo.data.characterPortrait;
