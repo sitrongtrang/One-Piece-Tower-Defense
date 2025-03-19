@@ -1511,7 +1511,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691180983}
         m_TargetAssemblyTypeName: RecruitPanel, Assembly-CSharp
-        m_MethodName: Recruit
+        m_MethodName: PerformGachaRecruit
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1913,6 +1913,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563802842}
   m_CullTransparentMesh: 1
+--- !u!1 &601064978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 601064980}
+  - component: {fileID: 601064979}
+  m_Layer: 0
+  m_Name: CharacterInventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &601064979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601064978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b95be2896fa7574cb266317231b7700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterPanel: {fileID: 1306568838}
+--- !u!4 &601064980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601064978}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 585.007, y: 243.39273, z: -0.5591568}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &637824566
 GameObject:
   m_ObjectHideFlags: 0
@@ -3157,11 +3202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183fe066314358743b325ce6e2a82051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicCharacterPrefab: {fileID: 2547617054977907417, guid: 31ff2343ae3806e43b75265d6b8a74dd, type: 3}
-  basicCharacterData: {fileID: 0}
-  characterInventory: []
   recruitPanel: {fileID: 1691180979}
-  characterPanel: {fileID: 1306568838}
+  characterInventory: {fileID: 601064978}
 --- !u!4 &1093190940
 Transform:
   m_ObjectHideFlags: 0
@@ -6785,7 +6827,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691180983}
         m_TargetAssemblyTypeName: RecruitPanel, Assembly-CSharp
-        m_MethodName: Recruit
+        m_MethodName: PerformGachaRecruit
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7421,7 +7463,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691180983}
         m_TargetAssemblyTypeName: RecruitPanel, Assembly-CSharp
-        m_MethodName: Recruit
+        m_MethodName: PerformGachaRecruit
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10553,8 +10595,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10810,8 +10852,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

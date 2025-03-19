@@ -5,46 +5,15 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.IO;
 
-// Rarity system
-public enum Rarity
-{
-    Common,
-    Uncommon,
-    Rare,
-    Epic,
-    Heroic,
-    Mythic,
-    Unique,
-    Extreme,
-    Legendary
-}
-
-public class EnumHelper
-{
-    public static Rarity GetPreviousEnumValue(Rarity current)
-    {
-        Rarity[] values = (Rarity[])Rarity.GetValues(typeof(Rarity));
-        int currentIndex = Array.IndexOf(values, current);
-        if (currentIndex <= 0)
-            return values[values.Length - 1];
-
-        return values[currentIndex - 1];
-    }
-}
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Dictionary<Rarity, Color> RarityToColor;
     public const int numCharEachPage = 6;
 
-    public GameObject basicCharacterPrefab;
-    public CharacterData basicCharacterData;
-
-    public List<CharacterData> characterInventory;
-
     [SerializeField] private GameObject recruitPanel;
     [SerializeField] private GameObject characterPanel;
+    [SerializeField] private GameObject characterInventory;
 
     private List<AssetReferenceT<CharacterData>> allCharacterReferences = new();
     private string characterLabel = "CharacterData";
@@ -73,9 +42,6 @@ public class GameManager : MonoBehaviour
 
         // Load character data into character pool
         LoadAllCharacterReferences();
-
-        basicCharacterData = Instantiate(basicCharacterPrefab).GetComponent<TowerCharacter>().characterData;
-        characterInventory.Add(basicCharacterData);
     }
 
     private void LoadAllCharacterReferences()
@@ -102,13 +68,8 @@ public class GameManager : MonoBehaviour
     // View player's character inventory
     public void ViewCharacters(int index)
     {
-        if (index >= characterInventory.Count || characterPanel.activeInHierarchy) return;
-        List<CharacterData> characters = new();
-        for (int  i = 0; i < numCharEachPage; i++)
-        {
-            if (index + i < characterInventory.Count) characters.Add(characterInventory[index + i]);
-            else characters.Add(null);
-        }
+        if (characterPanel.activeInHierarchy) return;
+        List<CharacterData> characters = CharacterInventory.Instance.GetCharacters(index, index + numCharEachPage);
         characterPanel.GetComponent<CharacterPanel>().Show(characters);
     }
 
@@ -130,12 +91,13 @@ public class GameManager : MonoBehaviour
         int index = UnityEngine.Random.Range(0, allCharacterReferences.Count);
         AssetReferenceT<CharacterData> characterReference = allCharacterReferences[index];
 
-        Addressables.LoadAssetAsync<CharacterData>(characterReference).Completed += handle =>
+        AsyncOperationHandle<CharacterData> handle = Addressables.LoadAssetAsync<CharacterData>(characterReference);
+        handle.Completed += task =>
         {
-            if (handle.Status == AsyncOperationStatus.Succeeded)
+            if (task.Status == AsyncOperationStatus.Succeeded)
             {
-                CharacterData data = handle.Result;
-                loadedCharacters[data] = handle;
+                CharacterData data = task.Result;
+                loadedCharacters[data] = task;
                 onCharacterLoaded?.Invoke(data);
             }
             else Debug.LogError($"Failed to load character: {characterReference}");

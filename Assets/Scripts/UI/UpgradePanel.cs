@@ -12,7 +12,7 @@ public class UpgradePanel : Panel
 
     private UpgradeRequirement requirement;
     private Canvas canvas;
-    private int choosingSlot;
+    private int choosingSlot = -1;
     private const int numMaterials = 5;
     private CharacterData[] chosenMaterial = new CharacterData[numMaterials];
 
@@ -42,7 +42,7 @@ public class UpgradePanel : Panel
             {
                 upgradeMaterials[i].image.sprite = requirement.obligatoryRequirements[i].characterPortrait;
 
-                if (!GameManager.Instance.characterInventory.Contains(requirement.obligatoryRequirements[i]))
+                if (!CharacterInventory.Instance.CheckOwnedCharacter(requirement.obligatoryRequirements[i]))
                 {
                     chosenMaterial[i] = null;
                     upgradeMaterials[i].interactable = false;
@@ -67,13 +67,8 @@ public class UpgradePanel : Panel
     public override void Close()
     {
         base.Close();
+        for (int i = requirement.obligatoryRequirements.Count; i < numMaterials; i++) upgradeMaterials[i].image.sprite = null;
         materialPanel.GetComponent<MaterialList>().Close();
-    }
-
-    private void ViewMaterials(Rarity rarity, int index)
-    {
-        choosingSlot = index;
-        materialPanel.GetComponent<MaterialList>().Show(rarity);
     }
 
     public void ChooseMaterial(CharacterData material)
@@ -85,15 +80,18 @@ public class UpgradePanel : Panel
         materialPanel.GetComponent<MaterialList>().Close();
     }
 
-
-    // Check if material is already chosen
-    public bool IsChosenMaterial(CharacterData material)
+    private void ViewMaterials(Rarity rarity, int index)
     {
-        for (int i = 0; i < numMaterials; i++)
+        choosingSlot = index;
+
+        // Find materials with input rarity while filtering out already chosen materials
+        var materialSpec = new AndSpecification(new RaritySpecification(rarity), new NotSpecification(new IdenticalSpecification(chosenMaterial[0])));
+        for (int i = 1; i < numMaterials; i++)
         {
-            if (chosenMaterial[i] == material) return true;
+            if (chosenMaterial[i]) materialSpec = new AndSpecification(materialSpec, new NotSpecification(new IdenticalSpecification(chosenMaterial[i]))); // filter out chosen material
         }
-        return false;
+        List<CharacterData> characters = CharacterFilter.Filter(CharacterInventory.Instance.GetCharacters(), materialSpec);
+        materialPanel.GetComponent<MaterialList>().Show(characters);
     }
 
     private void Upgrade()
@@ -102,9 +100,9 @@ public class UpgradePanel : Panel
         {
             // Satisfy requirement, remove all material from player's inventory, and add the upgraded character to the player's inventory
             for (int i = 0; i < numMaterials; i++) {
-                GameManager.Instance.characterInventory.Remove(chosenMaterial[i]);
+                CharacterInventory.Instance.RemoveCharacter(chosenMaterial[i]);
             }
-            GameManager.Instance.characterInventory.Add(requirement.upgradeTarget);
+            CharacterInventory.Instance.AddCharacter(requirement.upgradeTarget);
             PanelManager.Instance.CloseAllPanels();
             GameManager.Instance.ViewCharacters(0);
         } else Debug.Log("Not enough requirement");

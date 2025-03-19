@@ -31,7 +31,7 @@ public class CharacterPanel : Panel
     {
         if (!(data is List<CharacterData> characters)) return;
 
-        numPages = (int)Mathf.Ceil((GameManager.Instance.characterInventory.Count * 1.0f)/ numCharEachPage);
+        numPages = (int)Mathf.Ceil((CharacterInventory.Instance.CountOwnedCharacters() * 1.0f)/ numCharEachPage);
 
         for (int i = 0; i < numCharEachPage; i++)
         {
@@ -65,6 +65,7 @@ public class CharacterPanel : Panel
     public override void Close()
     {
         base.Close();
+        currentPage = 0;
         characterCard.GetComponent<CharacterCard>().Close();
     }
 
@@ -76,14 +77,14 @@ public class CharacterPanel : Panel
     private void ViewNextPage()
     {
         currentPage++;
-        PanelManager.Instance.CloseAllPanels();
-        GameManager.Instance.ViewCharacters(currentPage * 6);
+        List<CharacterData> characters = CharacterInventory.Instance.GetCharacters(currentPage * 6, (currentPage + 1) * 6);
+        Show(characters);
     }
 
     private void ViewPreviousPage()
     {
         currentPage--;
-        PanelManager.Instance.CloseAllPanels();
-        GameManager.Instance.ViewCharacters(currentPage * 6);
+        List<CharacterData> characters = CharacterInventory.Instance.GetCharacters(currentPage * 6, (currentPage + 1) * 6);
+        Show(characters);
     }
 }

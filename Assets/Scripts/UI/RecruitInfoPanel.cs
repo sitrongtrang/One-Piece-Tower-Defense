@@ -13,33 +13,31 @@ public class RecruitInfoPanel : Panel
 
     [SerializeField] private GameObject recruitPanel;
 
-    private SlotInfo recruitInfo;
+    private CharacterData character;
 
     protected override void Setup(object data)
     {
-        if (!(data is SlotInfo character)) return;
+        if (!(data is CharacterData character)) return;
 
-        recruitInfo = character;
-        characterPortrait.sprite = recruitInfo.data.characterPortrait;
-        characterName.text = recruitInfo.data.characterName;
-        characterRarity.text = recruitInfo.data.rarity.ToString();
+        this.character = character;
 
-        statsText.text = $"Attack: {recruitInfo.data.attackPower}\n" +
-                         $"Speed: {recruitInfo.data.attackSpeed}\n" +
-                         $"Range: {recruitInfo.data.range}\n" +
-                         $"Health: {recruitInfo.data.health}";
+        characterPortrait.sprite = character.characterPortrait;
+        characterName.text = character.characterName;
+        characterRarity.text = character.rarity.ToString();
+
+        statsText.text = $"Attack: {character.attackPower}\n" +
+                         $"Speed: {character.attackSpeed}\n" +
+                         $"Range: {character.range}\n" +
+                         $"Health: {character.health}";
     }
 
     public void Recruit()
     {
-        if (GameManager.Instance.characterInventory.Contains(recruitInfo.data))
+        if (CharacterInventory.Instance.CheckOwnedCharacter(character)) Debug.Log("Already own character");
+        else
         {
-            Debug.Log("Already own character");
-        } else
-        {
-            GameManager.Instance.characterInventory.Add(recruitInfo.data);
-            recruitInfo.data = null;
-            recruitPanel.GetComponent<RecruitPanel>().RemoveSlot(recruitInfo.slotNum);
+            CharacterInventory.Instance.AddCharacter(character);
+            recruitPanel.GetComponent<RecruitPanel>().Recruit(character);
         }
     }
 }

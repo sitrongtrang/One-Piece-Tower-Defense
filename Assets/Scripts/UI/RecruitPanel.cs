@@ -11,16 +11,17 @@ public class RecruitPanel : Panel
     [SerializeField] private GameObject recruitInfoPanel;
 
     private CharacterData[] recruitedChars;
+    private int choosingSlot = -1;
 
     protected override void Start()
     {
         base.Start();
-        CharacterData basicCharacterData = GameManager.Instance.basicCharacterData;
-        recruitedChars = new CharacterData[6] { basicCharacterData, basicCharacterData, basicCharacterData, basicCharacterData, basicCharacterData, basicCharacterData };
+        recruitedChars = new CharacterData[6];
     }
 
     protected override void Setup(object data)
     {
+        choosingSlot = -1;
         for (int i = 0; i < recruits.Count; i++)
         {
             if (recruitedChars[i] != null) recruits[i].image.sprite = recruitedChars[i].characterPortrait;
@@ -36,12 +37,9 @@ public class RecruitPanel : Panel
         PanelManager.Instance.OpenPanel(gameObject);
     }
 
-    public void Recruit(int num)
+    public void PerformGachaRecruit(int num)
     {
-        for (int i = 0; i < recruits.Count; i++)
-        {
-            if (recruitedChars[i] != null) GameManager.Instance.ReleaseCharacter(recruitedChars[i]);
-        }
+        for (int i = 0; i < recruits.Count; i++) RemoveSlot(i);
         for (int i = 0; i < num; i++)
         {
             int index = i;
@@ -53,12 +51,21 @@ public class RecruitPanel : Panel
 
     public void ViewRecruitInfo(int index)
     {
-        if (recruitedChars[index] != null) recruitInfoPanel.GetComponent<RecruitInfoPanel>().Show(new SlotInfo(recruitedChars[index], index));
+        choosingSlot = index;
+        if (recruitedChars[index] != null) recruitInfoPanel.GetComponent<RecruitInfoPanel>().Show(recruitedChars[index]);
         else recruitInfoPanel.GetComponent<RecruitInfoPanel>().Close();
+    }
+
+    public void Recruit(CharacterData character)
+    {
+        RemoveSlot(choosingSlot);
+        choosingSlot = -1;
+        recruitInfoPanel.GetComponent<RecruitInfoPanel>().Close();
     }
 
     public void RemoveSlot(int index)
     {
+        if (recruitedChars[index] != null) GameManager.Instance.ReleaseCharacter(recruitedChars[index]);
         recruitedChars[index] = null;
         Show(6);
     }

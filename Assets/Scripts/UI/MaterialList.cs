@@ -23,17 +23,9 @@ public class MaterialList : Panel
 
     protected override void Setup(object data)
     {
-        if (!(data is Rarity rarity)) return;
+        if (!(data is List<CharacterData> characters)) return;
 
-        characters = new List<CharacterData>();
-
-        foreach (CharacterData characterData in GameManager.Instance.characterInventory)
-        {
-            if (characterData.rarity == rarity)
-            {
-                if (!upgradePanel.GetComponent<UpgradePanel>().IsChosenMaterial(characterData)) characters.Add(characterData);  
-            }
-        }
+        this.characters = characters;
 
         // Instantiate more game objects if pool is not enough, otherwise reuse old objects
         for (int i = materialOptionPool.Count; i < characters.Count; i++)
