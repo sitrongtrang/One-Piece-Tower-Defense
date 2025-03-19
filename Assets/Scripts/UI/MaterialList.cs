@@ -1,36 +1,24 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class MaterialList : Panel
+public class MaterialList : ScrollViewPanel
 {
-    [SerializeField] private GameObject materialPrefab;  
-    [SerializeField] private Transform contentPanel;    
-    [SerializeField] private ScrollRect scrollRect;     
-    [SerializeField] private Slider slider;
-
     [SerializeField] private GameObject upgradePanel;
 
-    private List<CharacterData> characters = new();
     private List<GameObject> materialOptionPool = new();
-
-    protected override void Start()
-    {
-        base.Start();
-        slider.onValueChanged.AddListener(UpdateScrollPosition);  
-    }
 
     protected override void Setup(object data)
     {
         if (!(data is List<CharacterData> characters)) return;
 
-        this.characters = characters;
+        options = new();
+
+        for (int i = 0; i < characters.Count; i++) options.Add(characters[i]);
 
         // Instantiate more game objects if pool is not enough, otherwise reuse old objects
         for (int i = materialOptionPool.Count; i < characters.Count; i++)
         {
-            GameObject newOption = Instantiate(materialPrefab, contentPanel);
+            GameObject newOption = Instantiate(optionPrefab, contentPanel);
             newOption.GetComponent<MaterialOption>().setMaterialPanel(gameObject);
             newOption.SetActive(false);
             materialOptionPool.Add(newOption);
@@ -38,7 +26,7 @@ public class MaterialList : Panel
 
         for (int i = 0; i < characters.Count; i++) materialOptionPool[i].GetComponent<MaterialOption>().Show(characters[i]);
 
-        AdjustSlider();
+        base.Setup(data);
     }
 
     public override void Close()
@@ -50,25 +38,5 @@ public class MaterialList : Panel
     public void ChooseMaterial(CharacterData material)
     {
         upgradePanel.GetComponent<UpgradePanel>().ChooseMaterial(material);
-    }
-
-    private void AdjustSlider()
-    {
-        float contentWidth = characters.Count * materialPrefab.GetComponent<RectTransform>().sizeDelta.x;
-        float viewportWidth = scrollRect.viewport.rect.width;
-
-        slider.gameObject.SetActive(contentWidth > viewportWidth);
-
-        if (contentWidth > viewportWidth)
-        {
-            slider.minValue = 0;
-            slider.maxValue = 1;
-            slider.value = 0;  
-        }
-    }
-
-    private void UpdateScrollPosition(float value)
-    {
-        scrollRect.horizontalNormalizedPosition = value;
     }
 }

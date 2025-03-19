@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,7 +34,6 @@ public class CharacterPanel : Panel
 
         for (int i = 0; i < numCharEachPage; i++)
         {
-            int localIndex = i;
             if (i < characters.Count && characters[i] != null)
             {
                 this.characters[i] = characters[i];
@@ -45,6 +43,8 @@ public class CharacterPanel : Panel
                 this.characters[i] = null;
                 characterButtons[i].image.sprite = null;
             }
+
+            int localIndex = i;
             characterButtons[i].onClick.AddListener(() => SelectCharacter(localIndex));
         }
 

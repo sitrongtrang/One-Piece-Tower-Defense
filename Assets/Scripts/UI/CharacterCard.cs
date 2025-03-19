@@ -49,7 +49,6 @@ public class CharacterCard : Panel
         upgradeList.GetComponent<UpgradeList>().Close();
     }
 
-
     // View this character's possible upgrades
     private void OpenUpgradeList()
     {

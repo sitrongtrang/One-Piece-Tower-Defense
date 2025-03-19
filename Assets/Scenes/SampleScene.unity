@@ -1942,7 +1942,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b95be2896fa7574cb266317231b7700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPanel: {fileID: 1306568838}
 --- !u!4 &601064980
 Transform:
   m_ObjectHideFlags: 0
@@ -3203,6 +3202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recruitPanel: {fileID: 1691180979}
+  characterPanel: {fileID: 1306568838}
   characterInventory: {fileID: 601064978}
 --- !u!4 &1093190940
 Transform:
@@ -8825,7 +8825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeButton: {fileID: 2069639259}
-  materialPrefab: {fileID: 822687357696001699, guid: 8b9dfc765bc247c4aafb1d56e1668ed5, type: 3}
+  optionPrefab: {fileID: 822687357696001699, guid: 8b9dfc765bc247c4aafb1d56e1668ed5, type: 3}
   contentPanel: {fileID: 1476674644625812741}
   scrollRect: {fileID: 3478701774991569576}
   slider: {fileID: 8256035526701115395}
@@ -11475,8 +11475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeButton: {fileID: 1237449290}
-  characterCard: {fileID: 7441183834361377464}
-  upgradeOptionPrefab: {fileID: 6505667336667190429, guid: ca23f2b97b8526142aed1231632df9f8, type: 3}
+  optionPrefab: {fileID: 6505667336667190429, guid: ca23f2b97b8526142aed1231632df9f8, type: 3}
   contentPanel: {fileID: 132218682}
   scrollRect: {fileID: 2000894822}
   slider: {fileID: 1205777389}

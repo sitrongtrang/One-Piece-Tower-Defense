@@ -1,18 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlotInfo
-{
-    public CharacterData data;
-    public int slotNum;
-
-    public SlotInfo(CharacterData data, int slotNum)
-    {
-        this.data = data;
-        this.slotNum = slotNum;
-    }
-}
-
 public abstract class Panel : MonoBehaviour
 {
     [SerializeField] protected Button closeButton;
@@ -20,8 +8,7 @@ public abstract class Panel : MonoBehaviour
     protected virtual void Start()
     {
         gameObject.SetActive(false);
-        if (closeButton != null)
-            closeButton.onClick.AddListener(Close);
+        if (closeButton != null) closeButton.onClick.AddListener(Close);
     }
 
     // Setup data needed for displaying

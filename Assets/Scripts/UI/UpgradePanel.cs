@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -58,7 +57,7 @@ public class UpgradePanel : Panel
                 chosenMaterial[i] = null;
                 int localIndex = i;
                 Rarity materialRarity = requirement.obligatoryRequirements[0].rarity;
-                upgradeMaterials[i].image.color = GameManager.Instance.RarityToColor[materialRarity];
+                upgradeMaterials[i].image.color = RarityMapper.RarityToColor[materialRarity];
                 upgradeMaterials[i].onClick.AddListener(() => ViewMaterials(materialRarity, localIndex));
             }
         }
@@ -67,6 +66,7 @@ public class UpgradePanel : Panel
     public override void Close()
     {
         base.Close();
+        choosingSlot = -1;
         for (int i = requirement.obligatoryRequirements.Count; i < numMaterials; i++) upgradeMaterials[i].image.sprite = null;
         materialPanel.GetComponent<MaterialList>().Close();
     }
@@ -88,8 +88,10 @@ public class UpgradePanel : Panel
         var materialSpec = new AndSpecification(new RaritySpecification(rarity), new NotSpecification(new IdenticalSpecification(chosenMaterial[0])));
         for (int i = 1; i < numMaterials; i++)
         {
-            if (chosenMaterial[i]) materialSpec = new AndSpecification(materialSpec, new NotSpecification(new IdenticalSpecification(chosenMaterial[i]))); // filter out chosen material
+            // filter out chosen material
+            if (chosenMaterial[i]) materialSpec = new AndSpecification(materialSpec, new NotSpecification(new IdenticalSpecification(chosenMaterial[i]))); 
         }
+
         List<CharacterData> characters = CharacterFilter.Filter(CharacterInventory.Instance.GetCharacters(), materialSpec);
         materialPanel.GetComponent<MaterialList>().Show(characters);
     }

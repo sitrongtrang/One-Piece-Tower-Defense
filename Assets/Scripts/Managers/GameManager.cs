@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using System.IO;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public Dictionary<Rarity, Color> RarityToColor;
     public const int numCharEachPage = 6;
 
     [SerializeField] private GameObject recruitPanel;
     [SerializeField] private GameObject characterPanel;
+
     [SerializeField] private GameObject characterInventory;
 
     private List<AssetReferenceT<CharacterData>> allCharacterReferences = new();
-    private string characterLabel = "CharacterData";
+    private string characterDataLabel = "CharacterData";
     private Dictionary<CharacterData, AsyncOperationHandle<CharacterData>> loadedCharacters = new();
 
 
@@ -29,39 +28,25 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        RarityToColor = new();
-        RarityToColor.Add(Rarity.Common, Color.white);
-        RarityToColor.Add(Rarity.Uncommon, Color.green);
-        RarityToColor.Add(Rarity.Rare, Color.blue);
-        RarityToColor.Add(Rarity.Epic, new Color(128, 0, 128));
-        RarityToColor.Add(Rarity.Heroic, Color.yellow);
-        RarityToColor.Add(Rarity.Mythic, Color.red);
-        RarityToColor.Add(Rarity.Unique, Color.magenta);
-        RarityToColor.Add(Rarity.Extreme, new Color(255, 131, 83));
-        RarityToColor.Add(Rarity.Legendary, new Color(255, 94, 32));
-
-        // Load character data into character pool
+        // Load character data's references into character pool
         LoadAllCharacterReferences();
     }
 
     private void LoadAllCharacterReferences()
     {
-        Addressables.LoadResourceLocationsAsync(characterLabel, typeof(CharacterData)).Completed += handle =>
+        Addressables.LoadResourceLocationsAsync(characterDataLabel, typeof(CharacterData)).Completed += (handle) =>
         {
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 foreach (UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation location in handle.Result)
                 {
-                    AssetReferenceT<CharacterData> assetReference = new AssetReferenceT<CharacterData>(location.PrimaryKey);
+                    AssetReferenceT<CharacterData> assetReference = new(location.PrimaryKey);
                     allCharacterReferences.Add(assetReference);
                 }
 
                 Debug.Log($"Loaded {allCharacterReferences.Count} character references from Addressables.");
             }
-            else
-            {
-                Debug.LogError("Failed to load character references.");
-            }
+            else Debug.LogError("Failed to load character references.");
         };
     }
 
@@ -92,7 +77,7 @@ public class GameManager : MonoBehaviour
         AssetReferenceT<CharacterData> characterReference = allCharacterReferences[index];
 
         AsyncOperationHandle<CharacterData> handle = Addressables.LoadAssetAsync<CharacterData>(characterReference);
-        handle.Completed += task =>
+        handle.Completed += (task) =>
         {
             if (task.Status == AsyncOperationStatus.Succeeded)
             {
@@ -104,6 +89,7 @@ public class GameManager : MonoBehaviour
         };
     }
 
+    // Release character data from memory when not used
     public void ReleaseCharacter(CharacterData characterData)
     {
         if (loadedCharacters.TryGetValue(characterData, out var handle))
