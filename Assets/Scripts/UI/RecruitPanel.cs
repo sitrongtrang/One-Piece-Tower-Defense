@@ -31,7 +31,7 @@ public class RecruitPanel : Panel
 
             if (recruitedCharReferences[i] != null)
             {
-                GameManager.Instance.LoadCharacter(recruitedCharReferences[i], (characterData) =>
+                CharacterLoader.LoadCharacter(recruitedCharReferences[i], (characterData) =>
                 {
                     recruitedChars[localIndex] = characterData;
                     recruits[localIndex].image.sprite = recruitedChars[localIndex]?.characterPortrait ?? emptyRecruitSlot;
@@ -60,12 +60,23 @@ public class RecruitPanel : Panel
     {
         for (int i = 0; i < recruits.Count; i++) RemoveSlot(i);
 
+        int numChars = CharacterLoader.GetNumChar();
+
+        if (numChars == 0)
+        {
+            Debug.LogError("No characters available in the pool.");
+            return;
+        }
+
         for (int i = 0; i < num; i++)
         {
-            recruitedCharReferences[i] = GameManager.Instance.Recruit();
+            int index = Random.Range(0, numChars);
+            AssetReferenceT<CharacterData> charRef = CharacterLoader.GetCharRef(index);
+            recruitedCharReferences[i] = charRef;
+
             int localIndex = i;
 
-            GameManager.Instance.LoadCharacter(recruitedCharReferences[i], (characterData) =>
+            CharacterLoader.LoadCharacter(recruitedCharReferences[i], (characterData) =>
             {
                 recruitedChars[localIndex] = characterData;
                 recruits[localIndex].image.sprite = recruitedChars[localIndex]?.characterPortrait ?? emptyRecruitSlot;
@@ -100,7 +111,7 @@ public class RecruitPanel : Panel
 
     public void RemoveSlot(int index)
     {
-        if (recruitedChars[index] != null) GameManager.Instance.ReleaseCharacter(recruitedChars[index]);
+        if (recruitedChars[index] != null) CharacterLoader.ReleaseCharacter(recruitedChars[index]);
         recruitedChars[index] = null;
     }
 }

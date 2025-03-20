@@ -5555,7 +5555,7 @@ MonoBehaviour:
   - {fileID: 637824567}
   - {fileID: 1998058231}
   - {fileID: 1895944395}
-  emptyRecruitSlot: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  emptyRecruitSlot: {fileID: 0}
   recruitInfoPanel: {fileID: 336646259}
 --- !u!1 &1732239108
 GameObject:
@@ -5898,8 +5898,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 336646261}
-        m_TargetAssemblyTypeName: RecruitInfoPanel, Assembly-CSharp
+      - m_Target: {fileID: 1691180983}
+        m_TargetAssemblyTypeName: RecruitPanel, Assembly-CSharp
         m_MethodName: Recruit
         m_Mode: 1
         m_Arguments:
