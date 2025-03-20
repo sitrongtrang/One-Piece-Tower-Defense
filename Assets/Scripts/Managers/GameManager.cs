@@ -65,17 +65,21 @@ public class GameManager : MonoBehaviour
         recruitPanel.GetComponent<RecruitPanel>().Show(6);
     }
 
-    public void Recruit(Action<CharacterData> onCharacterLoaded)
+    public AssetReferenceT<CharacterData> Recruit()
     {
         if (allCharacterReferences.Count == 0)
         {
             Debug.LogError("No characters available in the pool.");
-            return;
+            return null;
         }
 
         int index = UnityEngine.Random.Range(0, allCharacterReferences.Count);
         AssetReferenceT<CharacterData> characterReference = allCharacterReferences[index];
+        return characterReference;
+    }
 
+    public void LoadCharacter(AssetReferenceT<CharacterData> characterReference, Action<CharacterData> onCharacterLoaded = null)
+    {
         AsyncOperationHandle<CharacterData> handle = Addressables.LoadAssetAsync<CharacterData>(characterReference);
         handle.Completed += (task) =>
         {

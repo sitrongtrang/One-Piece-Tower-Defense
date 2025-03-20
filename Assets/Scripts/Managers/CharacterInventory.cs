@@ -31,7 +31,7 @@ public class CharacterInventory : MonoBehaviour
         return characters;
     }
 
-    public bool CheckOwnedCharacter(CharacterData character)
+    public bool HasCharacter(CharacterData character)
     {
         return characterInventory.Contains(character);
     }

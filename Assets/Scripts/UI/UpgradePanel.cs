@@ -41,7 +41,7 @@ public class UpgradePanel : Panel
             {
                 upgradeMaterials[i].image.sprite = requirement.obligatoryRequirements[i].characterPortrait;
 
-                if (!CharacterInventory.Instance.CheckOwnedCharacter(requirement.obligatoryRequirements[i]))
+                if (!CharacterInventory.Instance.HasCharacter(requirement.obligatoryRequirements[i]))
                 {
                     chosenMaterial[i] = null;
                     upgradeMaterials[i].interactable = false;

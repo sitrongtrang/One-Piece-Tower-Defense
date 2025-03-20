@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,15 +27,5 @@ public class RecruitInfoPanel : Panel
                          $"Speed: {character.attackSpeed}\n" +
                          $"Range: {character.range}\n" +
                          $"Health: {character.health}";
-    }
-
-    public void Recruit()
-    {
-        if (CharacterInventory.Instance.CheckOwnedCharacter(character)) Debug.Log("Already own character");
-        else
-        {
-            CharacterInventory.Instance.AddCharacter(character);
-            recruitPanel.GetComponent<RecruitPanel>().Recruit(character);
-        }
     }
 }
