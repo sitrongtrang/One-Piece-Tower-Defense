@@ -22,21 +22,25 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterData
+    - Recruitables
   - m_GUID: 7128d09cdc6be6744a45444ac6e733dc
     m_Address: Assets/ScriptableObjects/Characters/Kuma (Heroic).asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterData
+    - Recruitables
   - m_GUID: f69b30f814f0b254ca0e7561d33aef74
     m_Address: Assets/ScriptableObjects/Characters/Kuma.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterData
+    - Recruitables
   - m_GUID: 081cebdb61cdf224392b5392d166909f
     m_Address: Assets/ScriptableObjects/Characters/Luffy.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterData
+    - Recruitables
   - m_GUID: 56f5602f28d750147a5ea2774a1ce50d
     m_Address: Assets/ScriptableObjects/Characters/LuffyBoundman.asset
     m_ReadOnly: 0
@@ -62,6 +66,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterData
+    - Recruitables
   - m_GUID: 48409aeba1e5dcf48809ed540d43f497
     m_Address: Assets/ScriptableObjects/Characters/NikaLuffy.asset
     m_ReadOnly: 0
@@ -72,26 +77,31 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterData
+    - Recruitables
   - m_GUID: 535c294205fca0344bb55edf14804c55
     m_Address: Assets/ScriptableObjects/Characters/Robin.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterData
+    - Recruitables
   - m_GUID: 1230c0bd8e64ffd4fba0f437a43ec823
     m_Address: Assets/ScriptableObjects/Characters/Sanji.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterData
+    - Recruitables
   - m_GUID: 61d7ea2247bb3c945a1a7967330a6588
     m_Address: Assets/ScriptableObjects/Characters/Usopp.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterData
+    - Recruitables
   - m_GUID: 35d721fdaf9a77f4ab4babf0409fc00e
     m_Address: Assets/ScriptableObjects/Characters/Zoro.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterData
+    - Recruitables
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 97b7620d8857e6d438c098827bbbc950, type: 2}
   m_SchemaSet:

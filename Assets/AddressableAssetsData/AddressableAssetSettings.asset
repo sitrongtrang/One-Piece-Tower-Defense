@@ -86,6 +86,7 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - CharacterData
+    - Recruitables
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 9c43c18c0adea6f408f05279c0a38833, type: 2}

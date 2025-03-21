@@ -8,6 +8,9 @@ public class RecruitPanel : Panel
     [SerializeField] private List<Button> recruits;
     [SerializeField] private Sprite emptyRecruitSlot;
     [SerializeField] private GameObject recruitInfoPanel;
+    [SerializeField] private Button recruitLow;
+    [SerializeField] private Button recruitMedium;
+    [SerializeField] private Button recruitHigh;
 
     private CharacterData[] recruitedChars;
     private AssetReferenceT<CharacterData>[] recruitedCharReferences;
@@ -18,6 +21,10 @@ public class RecruitPanel : Panel
         base.Start();
         recruitedChars = new CharacterData[6];
         recruitedCharReferences = new AssetReferenceT<CharacterData>[6];
+
+        recruitLow.onClick.AddListener(() => PerformGachaRecruit(PullMode.Low));
+        recruitMedium.onClick.AddListener(() => PerformGachaRecruit(PullMode.Medium));
+        recruitHigh.onClick.AddListener(() => PerformGachaRecruit(PullMode.High));
     }
 
     protected override void Setup(object data)
@@ -56,8 +63,10 @@ public class RecruitPanel : Panel
         for (int i = 0; i < recruits.Count; i++) RemoveSlot(i);
     }
 
-    public void PerformGachaRecruit(int num)
+    public void PerformGachaRecruit(PullMode mode)
     {
+        int num = (int)mode;
+
         for (int i = 0; i < recruits.Count; i++) RemoveSlot(i);
 
         int numChars = CharacterLoader.GetNumChar();

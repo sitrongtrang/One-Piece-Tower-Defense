@@ -1508,19 +1508,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 509126129}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1691180983}
-        m_TargetAssemblyTypeName: RecruitPanel, Assembly-CSharp
-        m_MethodName: PerformGachaRecruit
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 6
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &509126129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5557,6 +5545,9 @@ MonoBehaviour:
   - {fileID: 1895944395}
   emptyRecruitSlot: {fileID: 0}
   recruitInfoPanel: {fileID: 336646259}
+  recruitLow: {fileID: 2053937715}
+  recruitMedium: {fileID: 1958569961}
+  recruitHigh: {fileID: 509126128}
 --- !u!1 &1732239108
 GameObject:
   m_ObjectHideFlags: 0
@@ -6824,19 +6815,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1958569962}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1691180983}
-        m_TargetAssemblyTypeName: RecruitPanel, Assembly-CSharp
-        m_MethodName: PerformGachaRecruit
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1958569962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7460,19 +7439,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2053937716}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1691180983}
-        m_TargetAssemblyTypeName: RecruitPanel, Assembly-CSharp
-        m_MethodName: PerformGachaRecruit
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2053937716
 MonoBehaviour:
   m_ObjectHideFlags: 0
