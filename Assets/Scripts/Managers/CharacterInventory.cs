@@ -39,11 +39,18 @@ public class CharacterInventory : MonoBehaviour
     public void AddCharacter(CharacterData character)
     {
         characterInventory.Add(character);
+        CharacterPool.Instance.RemoveCharacter(character);
     }
 
     public void RemoveCharacter(CharacterData character)
     {
-        characterInventory.Remove(character);
+        if (HasCharacter(character))
+        {
+            characterInventory.Remove(character);
+            CharacterPool.Instance.AddCharacter(character);
+        }
+        else Debug.Log("No character to be removed");
+
     }
 
     private void LoadInventory()

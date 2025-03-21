@@ -101,6 +101,11 @@ public class UpgradePanel : Panel
         if (CheckUpgradeRequirements())
         {
             // Satisfy requirement, remove all material from player's inventory, and add the upgraded character to the player's inventory
+            if (CharacterInventory.Instance.HasCharacter(requirement.upgradeTarget))
+            {
+                Debug.Log("Already have character");
+                return;
+            }
             for (int i = 0; i < numMaterials; i++) {
                 CharacterInventory.Instance.RemoveCharacter(chosenMaterial[i]);
             }

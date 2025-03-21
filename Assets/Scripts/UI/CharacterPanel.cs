@@ -69,6 +69,8 @@ public class CharacterPanel : Panel
         characterCard.GetComponent<CharacterCard>().Close();
     }
 
+    public int GetNumCharEachPage() => numCharEachPage;
+
     private void SelectCharacter(int index)
     {
         if (characters[index] != null) characterCard.GetComponent<CharacterCard>().Show(characters[index]);

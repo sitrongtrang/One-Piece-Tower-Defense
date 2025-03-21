@@ -65,8 +65,6 @@ public class RecruitPanel : Panel
 
     public void PerformGachaRecruit(PullMode mode)
     {
-        int num = (int)mode;
-
         for (int i = 0; i < recruits.Count; i++) RemoveSlot(i);
 
         int numChars = CharacterLoader.GetNumChar();
@@ -77,11 +75,17 @@ public class RecruitPanel : Panel
             return;
         }
 
+        List<AssetReferenceT<CharacterData>> temp = GachaSystem.RollCharacter(mode);
+        int num = temp.Count;
+
+        for (int i = 0; i < recruits.Count; i++)
+        {
+            if (i < temp.Count) recruitedCharReferences[i] = temp[i];
+            else recruitedCharReferences[i] = null;
+        }
+
         for (int i = 0; i < num; i++)
         {
-            int index = Random.Range(0, numChars);
-            AssetReferenceT<CharacterData> charRef = CharacterLoader.GetCharRef(index);
-            recruitedCharReferences[i] = charRef;
 
             int localIndex = i;
 
@@ -92,7 +96,6 @@ public class RecruitPanel : Panel
             });
         }
 
-        for (int i = num; i < recruits.Count; i++) recruitedCharReferences[i] = null;
         recruitInfoPanel.GetComponent<RecruitInfoPanel>().Close();
     }
 

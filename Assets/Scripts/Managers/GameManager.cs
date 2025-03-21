@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public const int numCharEachPage = 6;
 
     [SerializeField] private GameObject recruitPanel;
     [SerializeField] private GameObject characterPanel;
@@ -20,8 +18,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+    }
 
-        // Load character data's references into character pool
+    private void Start()
+    {
         CharacterLoader.LoadAllCharacterReferences();
     }
 
@@ -30,8 +30,9 @@ public class GameManager : MonoBehaviour
     public void ViewCharacters(int index)
     {
         if (characterPanel.activeInHierarchy) return;
-        List<CharacterData> characterIds = CharacterInventory.Instance.GetCharacters(index, index + numCharEachPage);
-        characterPanel.GetComponent<CharacterPanel>().Show(characterIds);
+        CharacterPanel panel = characterPanel.GetComponent<CharacterPanel>();
+        List<CharacterData> characterIds = CharacterInventory.Instance.GetCharacters(index, index + panel.GetNumCharEachPage());
+        panel.Show(characterIds);
     }
 
     // Recruit characters

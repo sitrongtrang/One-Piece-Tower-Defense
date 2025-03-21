@@ -6,7 +6,11 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public static class CharacterLoader 
 {
+    // Map each character data to the task that loaded it
     private static Dictionary<CharacterData, AsyncOperationHandle<CharacterData>> loadedCharacters = new();
+
+    // Map each character id to its asset reference
+    private static Dictionary<string, AssetReferenceT<CharacterData>> characterIds = new();
 
     private static List<AssetReferenceT<CharacterData>> allCharacterReferences = new();
     private static List<string> recruitableCharLabel = new List<string> { "CharacterData", "Recruitables" };
@@ -25,6 +29,7 @@ public static class CharacterLoader
                 }
 
                 Debug.Log($"Loaded {allCharacterReferences.Count} character references from Addressables.");
+                CharacterPool.Instance.LoadPool(); // Load the pool after loading all references
             }
             else Debug.LogError("Failed to load character references.");
         };
@@ -41,6 +46,7 @@ public static class CharacterLoader
                 CharacterData data = task.Result;
                 loadedCharacters[data] = task; // Store the task responsible for loading the data
                 onCharacterLoaded?.Invoke(data);
+                if (data != null) characterIds[data.name] = characterReference;
             }
             else Debug.LogError($"Failed to load character: {characterReference}");
         };
@@ -66,6 +72,9 @@ public static class CharacterLoader
         return allCharacterReferences[index]; 
     }
 
+    public static AssetReferenceT<CharacterData> GetCharRef(string id) => characterIds.TryGetValue(id, out AssetReferenceT<CharacterData> value) ? value : null;
+
     public static int GetNumChar() => allCharacterReferences.Count;
     public static List<AssetReferenceT<CharacterData>> GetAllChar() => allCharacterReferences;
+    
 }
