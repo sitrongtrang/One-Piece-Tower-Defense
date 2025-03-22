@@ -8,6 +8,7 @@ public class CharacterPool : MonoBehaviour
 
     // Map each rarity to the list of references of characters with that rarity
     private Dictionary<Rarity, List<AssetReferenceT<CharacterData>>> characterRarities = new();
+    private int totalChars;
 
     private void Awake()
     {
@@ -30,20 +31,21 @@ public class CharacterPool : MonoBehaviour
             CharacterLoader.LoadCharacter(charRef, (characterData) =>
             {
                 temp = characterData;
-                if (temp != null) characterRarities[temp.rarity].Add(charRef);
+                if (temp != null)
+                {
+                    characterRarities[temp.rarity].Add(charRef);
+                    totalChars++;
+                    CharacterLoader.ReleaseCharacter(temp);
+                }
             });
+
+            //if (temp != null) CharacterLoader.ReleaseCharacter(temp);
         }
     }
 
-    public void AddCharacter(AssetReferenceT<CharacterData> charRef, Rarity rarity) => characterRarities[rarity].Add(charRef);
     public List<AssetReferenceT<CharacterData>> GetCharsByRarity(Rarity rarity) => characterRarities[rarity];
     public int GetNumCharsByRarity(Rarity rarity) => characterRarities[rarity].Count;
-    public int GetTotalChars()
-    {
-        int total = 0;
-        foreach (var entry in characterRarities) total += entry.Value.Count;
-        return total;
-    }
+    public int GetTotalChars() => totalChars;
 
     public List<AssetReferenceT<CharacterData>> GetRandomCharacters(List<Rarity> rarities)
     {
@@ -54,24 +56,35 @@ public class CharacterPool : MonoBehaviour
 
         for (int i = 0; i < Mathf.Min(rarities.Count, totalChar); i++)
         {
-            while (uniqueChars.Count <= i)
+            while (uniqueChars.Count <= i) // Loop until a new character is added
             {
                 int index = rand.Next(0, characterRarities[rarities[i]].Count);
                 uniqueChars.Add(characterRarities[rarities[i]][index]);
-                Debug.Log(index);
             }
         }
+
         return new List<AssetReferenceT<CharacterData>>(uniqueChars);
+    }
+
+    public bool HasCharacter(CharacterData character)
+    {
+        return CharacterLoader.GetCharRef(character.name) != null;
     }
 
     public void AddCharacter(CharacterData character)
     {
         characterRarities[character.rarity].Add(CharacterLoader.GetCharRef(character.name));
+        totalChars++;
     }
 
     public void RemoveCharacter(CharacterData character)
     {
-        characterRarities[character.rarity].Remove(CharacterLoader.GetCharRef(character.name));
+        if (HasCharacter(character))
+        {
+            AssetReferenceT<CharacterData> reference = CharacterLoader.GetCharRef(character.name);
+            characterRarities[character.rarity].Remove(reference);
+            totalChars--;
+        }
     }
 }
 

@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class CharacterInventory : MonoBehaviour
 {
-    public static CharacterInventory Instance;
+    public static CharacterInventory Instance { get; private set; }
 
+    // Data of player's owned characters
     private List<CharacterData> characterInventory;
 
     private void Awake()
@@ -55,6 +56,7 @@ public class CharacterInventory : MonoBehaviour
 
     private void LoadInventory()
     {
+        // TODO: load inventory from save file
         characterInventory = new();
     }
 }

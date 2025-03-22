@@ -8,12 +8,14 @@ public class UpgradePanel : Panel
     [SerializeField] private Image target;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private GameObject materialPanel;
+    [SerializeField] private Sprite emptySlot;
 
     private UpgradeRequirement requirement;
     private Canvas canvas;
     private int choosingSlot = -1;
     private const int numMaterials = 5;
     private CharacterData[] chosenMaterial = new CharacterData[numMaterials];
+    private CharacterData targetCharacter;
 
     protected override void Start()
     {
@@ -33,33 +35,55 @@ public class UpgradePanel : Panel
         Vector3 middleOfCanvas = canvas.transform.position;
         transform.position = middleOfCanvas;
 
-        target.sprite = requirement.upgradeTarget.characterPortrait;
+        targetCharacter = null;
+        if (requirement.upgradeTarget != null)
+        {
+            CharacterLoader.LoadCharacter(requirement.upgradeTarget, (characterData) =>
+            {
+                targetCharacter = characterData;
+                target.sprite = targetCharacter?.characterPortrait ?? emptySlot;
+                if (targetCharacter != null)
+                {
+                    for (int i = requirement.obligatoryRequirements.Count; i < numMaterials; i++)
+                    {
+                        chosenMaterial[i] = null;
+                        int localIndex = i;
+                        Rarity materialRarity = (Rarity)((int)targetCharacter.rarity - 1);
+                        upgradeMaterials[i].image.color = RarityMapper.RarityToColor[materialRarity];
+                        upgradeMaterials[i].onClick.AddListener(() => ViewMaterials(materialRarity, localIndex));
+                    }
+                }
+
+            });
+        }
+
         for (int i = 0; i < numMaterials; i++)
         {
             upgradeMaterials[i].onClick.RemoveAllListeners();
             if (i < requirement.obligatoryRequirements.Count)
             {
-                upgradeMaterials[i].image.sprite = requirement.obligatoryRequirements[i].characterPortrait;
-
-                if (!CharacterInventory.Instance.HasCharacter(requirement.obligatoryRequirements[i]))
-                {
-                    chosenMaterial[i] = null;
-                    upgradeMaterials[i].interactable = false;
-                }
-                else
-                {
-                    chosenMaterial[i] = requirement.obligatoryRequirements[i];
-                    upgradeMaterials[i].interactable = true;
-                }
-
-            } else
-            {
-                chosenMaterial[i] = null;
                 int localIndex = i;
-                Rarity materialRarity = requirement.obligatoryRequirements[0].rarity;
-                upgradeMaterials[i].image.color = RarityMapper.RarityToColor[materialRarity];
-                upgradeMaterials[i].onClick.AddListener(() => ViewMaterials(materialRarity, localIndex));
-            }
+                CharacterData oblReq = null;
+                CharacterLoader.LoadCharacter(requirement.obligatoryRequirements[i], (characterData) =>
+                {
+                    oblReq = characterData;
+                    upgradeMaterials[localIndex].image.sprite = oblReq?.characterPortrait ?? emptySlot;
+                    if (oblReq != null) 
+                    {
+                        if (!CharacterInventory.Instance.HasCharacter(oblReq))
+                        {
+                            chosenMaterial[localIndex] = null;
+                            upgradeMaterials[localIndex].interactable = false;
+                        }
+                        else
+                        {
+                            chosenMaterial[localIndex] = oblReq;
+                            upgradeMaterials[localIndex].interactable = true;
+                        }
+                        CharacterLoader.ReleaseCharacter(oblReq);
+                    }
+                });
+            } 
         }
     }
 
@@ -69,6 +93,8 @@ public class UpgradePanel : Panel
         choosingSlot = -1;
         for (int i = requirement.obligatoryRequirements.Count; i < numMaterials; i++) upgradeMaterials[i].image.sprite = null;
         materialPanel.GetComponent<MaterialList>().Close();
+        if (targetCharacter != null) CharacterLoader.ReleaseCharacter(targetCharacter);
+        targetCharacter = null;
     }
 
     public void ChooseMaterial(CharacterData material)
@@ -101,7 +127,7 @@ public class UpgradePanel : Panel
         if (CheckUpgradeRequirements())
         {
             // Satisfy requirement, remove all material from player's inventory, and add the upgraded character to the player's inventory
-            if (CharacterInventory.Instance.HasCharacter(requirement.upgradeTarget))
+            if (CharacterInventory.Instance.HasCharacter(targetCharacter))
             {
                 Debug.Log("Already have character");
                 return;
@@ -109,7 +135,7 @@ public class UpgradePanel : Panel
             for (int i = 0; i < numMaterials; i++) {
                 CharacterInventory.Instance.RemoveCharacter(chosenMaterial[i]);
             }
-            CharacterInventory.Instance.AddCharacter(requirement.upgradeTarget);
+            CharacterInventory.Instance.AddCharacter(targetCharacter);
             PanelManager.Instance.CloseAllPanels();
             GameManager.Instance.ViewCharacters(0);
         } else Debug.Log("Not enough requirement");
@@ -118,7 +144,6 @@ public class UpgradePanel : Panel
     private bool CheckUpgradeRequirements()
     {
         for (int i = 0; i < numMaterials; i++) if (chosenMaterial[i] == null) return false;
-
         return true;
     }
 }

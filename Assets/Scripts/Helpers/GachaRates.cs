@@ -1,38 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 public enum PullMode
 {
-    Low = 2,
+    // Maximum number of recruits for each mode
+    Low = 2, 
     Medium = 3,
     High = 6
 }
 
 public static class GachaSystem
 {
-    public static int numRarity = 9;
+    private static int numRarity = 9;
     private static int numRecruitableRarity = 5;
 
     private static Dictionary<PullMode, Dictionary<Rarity, float>> rarityRates = new Dictionary<PullMode, Dictionary<Rarity, float>>
     {
+        // Static rates for each rarity in each recruit mode
         { PullMode.Low, new Dictionary<Rarity, float>
             {
-                { Rarity.Common, 0.6f },      // 60% chance
-                { Rarity.Uncommon, 0.3f },    // 30% chance
-                { Rarity.Rare, 0.09f },       // 9% chance
-                { Rarity.Epic, 0.01f },       // 1% chance
-                { Rarity.Heroic, 0f }         // 0% chance
+                { Rarity.Common, 0.6f },       // 60% chance
+                { Rarity.Uncommon, 0.3f },     // 30% chance
+                { Rarity.Rare, 0.08f },        // 8% chance
+                { Rarity.Epic, 0.015f },       // 1.5% chance
+                { Rarity.Heroic, 0.005f }      // 0.5% chance
             }
         },
         { PullMode.Medium, new Dictionary<Rarity, float>
             {
                 { Rarity.Common, 0.2f },    
-                { Rarity.Uncommon, 0.5f },  
+                { Rarity.Uncommon, 0.45f },  
                 { Rarity.Rare, 0.25f },       
-                { Rarity.Epic, 0.04f },       
-                { Rarity.Heroic, 0.01f }   
+                { Rarity.Epic, 0.07f },       
+                { Rarity.Heroic, 0.03f }   
             }
         },
         { PullMode.High, new Dictionary<Rarity, float>
@@ -46,6 +47,9 @@ public static class GachaSystem
         }
     };
 
+    public static int GetNumRarity() => numRarity;
+    public static int GetNumRecruitableRarity() => numRecruitableRarity;
+
     public static float GetStaticRate(PullMode mode, Rarity rarity) => rarityRates[mode][rarity];
 
     public static Dictionary<Rarity, float> GetStaticRates(PullMode mode) => rarityRates[mode];
@@ -57,6 +61,8 @@ public static class GachaSystem
     {
         Dictionary<Rarity, float> rates = new();
         float sum = 0f;
+
+        // Get the dynamic rates for each rarity
         for (int i = 0; i < numRecruitableRarity; i++)
         {
             rates[(Rarity)i] = GetDynamicRate(mode, (Rarity)i, counts[(Rarity)i], totalChar);
@@ -85,14 +91,14 @@ public static class GachaSystem
 
     public static List<AssetReferenceT<CharacterData>> RollCharacter(PullMode mode)
     {
-        int num = Mathf.Min((int)mode, CharacterPool.Instance.GetTotalChars());
+        int num = Mathf.Min((int)mode, CharacterPool.Instance.GetTotalChars()); // Number of characters to be recruited
         if (num < 1)
         {
             Debug.Log("No character left in pool");
             return new();
         }
 
-        List<Rarity> selectedRarities = new();
+        List<Rarity> selectedRarities = new(); // Character rarity for each slot
 
         int totalChar = CharacterPool.Instance.GetTotalChars();
 

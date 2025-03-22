@@ -8,6 +8,7 @@ public class UpgradeOption : Panel
 {
     [SerializeField] private Button characterPortrait;
     [SerializeField] private TextMeshProUGUI characterName;
+    [SerializeField] private Sprite emptySlot;
 
     private UpgradeRequirement requirement;
     private GameObject upgradePanel;
@@ -23,8 +24,20 @@ public class UpgradeOption : Panel
         if (!(data is UpgradeRequirement requirement)) return;
 
         this.requirement = requirement;
-        characterPortrait.GetComponent<Image>().sprite = requirement.upgradeTarget.characterPortrait;
-        characterName.text = requirement.upgradeTarget.characterName;
+
+        CharacterData target = null;
+        if (requirement.upgradeTarget != null)
+        {
+            CharacterLoader.LoadCharacter(requirement.upgradeTarget, (characterData) =>
+            {
+                target = characterData;
+                characterPortrait.GetComponent<Image>().sprite = target?.characterPortrait ?? emptySlot;
+                characterName.text = target?.characterName ?? "";
+                if (target != null) CharacterLoader.ReleaseCharacter(target);
+            });
+        }
+
+        if (target != null) CharacterLoader.ReleaseCharacter(target);
     }
 
     public override void Close()

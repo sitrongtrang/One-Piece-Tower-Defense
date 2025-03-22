@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 [System.Serializable]
 public class UpgradeRequirement
 {
-    public CharacterData upgradeTarget; // The character this upgrade leads to
-    public List<CharacterData> obligatoryRequirements; // Required specific characters
+    public AssetReferenceT<CharacterData> upgradeTarget; // The character this upgrade leads to
+    public List<AssetReferenceT<CharacterData>> obligatoryRequirements; // Required specific characters
 }
 
 [CreateAssetMenu(fileName = "NewCharacterData", menuName = "Character/Character Data")]

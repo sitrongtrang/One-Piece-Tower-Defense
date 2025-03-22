@@ -125,5 +125,6 @@ public class RecruitPanel : Panel
     {
         if (recruitedChars[index] != null) CharacterLoader.ReleaseCharacter(recruitedChars[index]);
         recruitedChars[index] = null;
+        recruits[index].image.sprite = emptyRecruitSlot;
     }
 }

@@ -62,6 +62,7 @@ public static class CharacterLoader
         }
     }
 
+    // Get asset reference by index
     public static AssetReferenceT<CharacterData> GetCharRef(int index) 
     { 
         if (index > allCharacterReferences.Count)
@@ -72,6 +73,7 @@ public static class CharacterLoader
         return allCharacterReferences[index]; 
     }
 
+    // Get asset reference by character id
     public static AssetReferenceT<CharacterData> GetCharRef(string id) => characterIds.TryGetValue(id, out AssetReferenceT<CharacterData> value) ? value : null;
 
     public static int GetNumChar() => allCharacterReferences.Count;
