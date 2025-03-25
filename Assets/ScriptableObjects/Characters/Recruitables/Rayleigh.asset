@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4421ad010e3d244087f52387f5b672e, type: 3}
   m_Name: Rayleigh
   m_EditorClassIdentifier: 
-  characterPortrait: {fileID: 21300000, guid: 77dc87a2efb829542a1906853a035cde, type: 3}
+  isRecruitable: 1
+  characterPortrait: {fileID: 21300000, guid: 8a40ea832f8e7224089b9e158bc7e9aa, type: 3}
   characterName: Silvers Rayleigh
   rarity: 4
   attackPower: 0

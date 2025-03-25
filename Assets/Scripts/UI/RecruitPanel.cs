@@ -11,6 +11,7 @@ public class RecruitPanel : Panel
     [SerializeField] private Button recruitLow;
     [SerializeField] private Button recruitMedium;
     [SerializeField] private Button recruitHigh;
+    [SerializeField] private Button recruitAll;
 
     private CharacterData[] recruitedChars;
     private AssetReferenceT<CharacterData>[] recruitedCharReferences;
@@ -118,6 +119,18 @@ public class RecruitPanel : Panel
             recruits[choosingSlot].image.sprite = emptyRecruitSlot;
             choosingSlot = -1;
             recruitInfoPanel.GetComponent<RecruitInfoPanel>().Close();
+        }
+    }
+
+    public void RecruitAll()
+    {
+        for (int i = 0; i < recruits.Count; i++)
+        {
+            if (recruitedChars[i] != null)
+            {
+                choosingSlot = i;
+                Recruit();
+            }
         }
     }
 

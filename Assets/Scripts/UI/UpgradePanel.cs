@@ -50,6 +50,8 @@ public class UpgradePanel : Panel
                         int localIndex = i;
                         Rarity materialRarity = (Rarity)((int)targetCharacter.rarity - 1);
                         upgradeMaterials[i].image.color = RarityMapper.RarityToColor[materialRarity];
+                        upgradeMaterials[i].image.sprite = null;
+                        upgradeMaterials[i].interactable = true;
                         upgradeMaterials[i].onClick.AddListener(() => ViewMaterials(materialRarity, localIndex));
                     }
                 }
@@ -67,6 +69,7 @@ public class UpgradePanel : Panel
                 CharacterLoader.LoadCharacter(requirement.obligatoryRequirements[i], (characterData) =>
                 {
                     oblReq = characterData;
+                    upgradeMaterials[localIndex].image.color = Color.white;
                     upgradeMaterials[localIndex].image.sprite = oblReq?.characterPortrait ?? emptySlot;
                     if (oblReq != null) 
                     {

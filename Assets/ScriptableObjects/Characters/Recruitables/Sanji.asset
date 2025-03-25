@@ -12,13 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4421ad010e3d244087f52387f5b672e, type: 3}
   m_Name: Sanji
   m_EditorClassIdentifier: 
-  characterPortrait: {fileID: 21300000, guid: fe913a01621cfd34bbf2c191ba491787, type: 3}
-  characterName: Sanji
-  rarity: 4
+  isRecruitable: 1
+  characterPortrait: {fileID: 21300000, guid: 53148085f49eb27419b5740468261030, type: 3}
+  characterName: Vinsmoke Sanji
+  rarity: 3
   attackPower: 0
   attackSpeed: 0
   range: 0
   health: 0
   attackAnimation: 
   skillAnimation: 
-  upgradeOptions: []
+  upgradeOptions:
+  - upgradeTarget:
+      m_AssetGUID: 0fabd402e11d33d4fac12f8fab343a3a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    obligatoryRequirements:
+    - m_AssetGUID: 1230c0bd8e64ffd4fba0f437a43ec823
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0

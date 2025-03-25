@@ -24,6 +24,7 @@ public class MaterialOption : Panel
         this.material = character;
         characterPortrait.GetComponent<Image>().sprite = character.characterPortrait;
         characterName.text = character.characterName;
+        characterName.GetComponent<TMP_Text>().color = RarityMapper.RarityToColor[character.rarity];
     }
 
     public void setMaterialPanel(GameObject materialPanel)

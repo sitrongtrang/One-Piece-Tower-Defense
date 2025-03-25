@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4421ad010e3d244087f52387f5b672e, type: 3}
   m_Name: Chopper
   m_EditorClassIdentifier: 
-  characterPortrait: {fileID: 21300000, guid: 6cdd255b32abc384684f64b3304df3e6, type: 3}
+  isRecruitable: 1
+  characterPortrait: {fileID: 21300000, guid: 369af9ac8646f1a4097606ef8295bade, type: 3}
   characterName: Tony Tony Chopper
-  rarity: 4
+  rarity: 3
   attackPower: 0
   attackSpeed: 0
   range: 0

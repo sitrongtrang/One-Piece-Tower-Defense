@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4421ad010e3d244087f52387f5b672e, type: 3}
+  m_Name: Morgan
+  m_EditorClassIdentifier: 
+  isRecruitable: 1
+  characterPortrait: {fileID: 21300000, guid: 91e0329826921284687f9e45d87d2745, type: 3}
+  characterName: Morgan
+  rarity: 2
+  attackPower: 0
+  attackSpeed: 0
+  range: 0
+  health: 0
+  attackAnimation: 
+  skillAnimation: 
+  upgradeOptions:
+  - upgradeTarget:
+      m_AssetGUID: a32ca48b6b2c4f44ab9cb46e2b10fd2c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    obligatoryRequirements:
+    - m_AssetGUID: a0c20ac45b7672b4b8c16a0e2a93c464
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: 091f3b32a9aa4b14c9e3a1068aa63c23
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: 722c091f3d6732c48914624f22b1729f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0

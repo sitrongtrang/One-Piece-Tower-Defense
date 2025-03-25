@@ -40,7 +40,7 @@ public class CharacterInventory : MonoBehaviour
     public void AddCharacter(CharacterData character)
     {
         characterInventory.Add(character);
-        CharacterPool.Instance.RemoveCharacter(character);
+        if (character.isRecruitable == true)  CharacterPool.Instance.RemoveCharacter(character);
     }
 
     public void RemoveCharacter(CharacterData character)
@@ -48,7 +48,7 @@ public class CharacterInventory : MonoBehaviour
         if (HasCharacter(character))
         {
             characterInventory.Remove(character);
-            CharacterPool.Instance.AddCharacter(character);
+            if (character.isRecruitable == true) CharacterPool.Instance.AddCharacter(character);
         }
         else Debug.Log("No character to be removed");
 

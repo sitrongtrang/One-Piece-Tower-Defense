@@ -12,6 +12,7 @@ public class UpgradeRequirement
 [CreateAssetMenu(fileName = "NewCharacterData", menuName = "Character/Character Data")]
 public class CharacterData : ScriptableObject
 {
+    public bool isRecruitable;
     public Sprite characterPortrait;
     public string characterName;
     public Rarity rarity;

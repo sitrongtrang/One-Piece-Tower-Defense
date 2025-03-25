@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4421ad010e3d244087f52387f5b672e, type: 3}
   m_Name: Usopp
   m_EditorClassIdentifier: 
-  characterPortrait: {fileID: 21300000, guid: 471603bdded7b044ea31bef05bb9e0ac, type: 3}
+  isRecruitable: 1
+  characterPortrait: {fileID: 21300000, guid: 8455423a42dd9254a9c784d9deea889d, type: 3}
   characterName: Usopp
-  rarity: 4
+  rarity: 3
   attackPower: 0
   attackSpeed: 0
   range: 0

@@ -23,8 +23,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - CharacterData
     - Recruitables
-  - m_GUID: 7128d09cdc6be6744a45444ac6e733dc
-    m_Address: Assets/ScriptableObjects/Characters/Kuma (Heroic).asset
+  - m_GUID: 02d0c4e915fff014496c4636c60a1fd7
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Brook.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterData
@@ -98,6 +98,108 @@ MonoBehaviour:
     - Recruitables
   - m_GUID: 35d721fdaf9a77f4ab4babf0409fc00e
     m_Address: Assets/ScriptableObjects/Characters/Zoro.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: 7de494d8cbc725e45a2bfc9a152abb07
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Franky.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: 7809357aa923eb645b118fae015b3db5
+    m_Address: Assets/ScriptableObjects/Characters/Upgrades/Luffy (Heroic).asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: f9c9297aaefc30f4d975e4fc5c5d2278
+    m_Address: Assets/ScriptableObjects/Characters/Upgrades/Zoro (Heroic).asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 0fabd402e11d33d4fac12f8fab343a3a
+    m_Address: Assets/ScriptableObjects/Characters/Upgrades/Sanji (Heroic).asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 732c481046cf2a440962230a440a9c7a
+    m_Address: Assets/ScriptableObjects/Characters/Upgrades/ZoroNewWorld.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 4b6870a910a66774983b7aca6d15cfea
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Mihawk.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: 20800f582894d164a876e13f1c923167
+    m_Address: Assets/ScriptableObjects/Characters/Upgrades/SanjiNewWorld.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: ab4ba1be85ede1d4eba7a8d3616d7c5f
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Ivankov.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: 76f710251cf038c41bc3b35b7160fc79
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Caesar.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: 0c89db029854af642a2a8081c379d772
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Doflamingo.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: e9096255f6b2eb541bdc9e5333f60537
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Vergo.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: 00e01a51fb06093479f0679d2a9993cd
+    m_Address: Assets/ScriptableObjects/Characters/Upgrades/Doflamingo.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: a0c20ac45b7672b4b8c16a0e2a93c464
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Morgan.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: f098c5d4c888ac941b5bc7a2766ab8f6
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Kuro.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: 6d7b1f135ff299d438738b83733c9aa4
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Buggy.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: 1c34b24b383b2ca469b7d4f00c11b28f
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Alvida.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: e6ab897cd15ecd94cb048bd6ed7de6c6
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Arlong.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: 95665b137d7b5624da2d1331f65ae98c
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Krieg.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterData

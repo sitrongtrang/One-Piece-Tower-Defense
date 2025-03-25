@@ -11,18 +11,15 @@ public class RecruitInfoPanel : Panel
 
     [SerializeField] private GameObject recruitPanel;
 
-    private CharacterData character;
-
     protected override void Setup(object data)
     {
         if (!(data is CharacterData character)) return;
 
-        this.character = character;
-
         characterPortrait.sprite = character.characterPortrait;
         characterName.text = character.characterName;
         characterRarity.text = character.rarity.ToString();
-
+        characterRarity.GetComponent<TMP_Text>().color = RarityMapper.RarityToColor[character.rarity];
+        characterName.GetComponent<TMP_Text>().color = RarityMapper.RarityToColor[character.rarity];
         statsText.text = $"Attack: {character.attackPower}\n" +
                          $"Speed: {character.attackSpeed}\n" +
                          $"Range: {character.range}\n" +

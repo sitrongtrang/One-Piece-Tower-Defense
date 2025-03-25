@@ -28,6 +28,8 @@ public class CharacterCard : Panel
         characterPortrait.sprite = character.characterPortrait;
         characterName.text = character.characterName;
         characterRarity.text = character.rarity.ToString();
+        characterRarity.GetComponent<TMP_Text>().color = RarityMapper.RarityToColor[character.rarity];
+        characterName.GetComponent<TMP_Text>().color = RarityMapper.RarityToColor[character.rarity];
         statsText.text = $"Attack: {character.attackPower}\n" +
                          $"Speed: {character.attackSpeed}\n" +
                          $"Range: {character.range}\n" +

@@ -16,7 +16,19 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: f18dfd021284da34c89d89813f9371fb
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: a32ca48b6b2c4f44ab9cb46e2b10fd2c
+    m_Address: Assets/ScriptableObjects/Characters/Upgrades/Morgan (Epic).asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 722c091f3d6732c48914624f22b1729f
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Helmeppo.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 091f3b32a9aa4b14c9e3a1068aa63c23
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Koby.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 97b7620d8857e6d438c098827bbbc950, type: 2}
   m_SchemaSet:

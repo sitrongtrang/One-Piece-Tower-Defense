@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4421ad010e3d244087f52387f5b672e, type: 3}
   m_Name: Luffy
   m_EditorClassIdentifier: 
-  characterPortrait: {fileID: 21300000, guid: 4746ed64459b73d4491c2dacfeb2a959, type: 3}
+  isRecruitable: 1
+  characterPortrait: {fileID: 21300000, guid: 1a1aadbf754d7a949b1b101d517920b6, type: 3}
   characterName: Monkey D. Luffy
-  rarity: 4
+  rarity: 3
   attackPower: 0
   attackSpeed: 0
   range: 0
@@ -22,8 +23,13 @@ MonoBehaviour:
   attackAnimation: 
   skillAnimation: 
   upgradeOptions:
-  - upgradeTarget: {fileID: 11400000, guid: 3dd16b7f2be197944aa26cd9c5535163, type: 2}
+  - upgradeTarget:
+      m_AssetGUID: 7809357aa923eb645b118fae015b3db5
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
     obligatoryRequirements:
-    - {fileID: 11400000}
-    - {fileID: 11400000, guid: 6e1c07d2e582a884db87a3acf92b4b3a, type: 2}
-    - {fileID: 11400000, guid: 7128d09cdc6be6744a45444ac6e733dc, type: 2}
+    - m_AssetGUID: 081cebdb61cdf224392b5392d166909f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0

@@ -33,7 +33,11 @@ public class UpgradeOption : Panel
                 target = characterData;
                 characterPortrait.GetComponent<Image>().sprite = target?.characterPortrait ?? emptySlot;
                 characterName.text = target?.characterName ?? "";
-                if (target != null) CharacterLoader.ReleaseCharacter(target);
+                if (target != null) 
+                {
+                    characterName.GetComponent<TMP_Text>().color = RarityMapper.RarityToColor[target.rarity];
+                    CharacterLoader.ReleaseCharacter(target);
+                }
             });
         }
 
