@@ -36,12 +36,12 @@ public static class RarityMapper
         { Rarity.Common, Color.white },
         { Rarity.Uncommon, Color.green },
         { Rarity.Rare, Color.blue },
-        { Rarity.Epic, new Color(128, 0, 128) },
+        { Rarity.Epic, new Color(191f / 255f, 64f / 255f, 191f / 255f) },
         { Rarity.Heroic, Color.yellow },
         { Rarity.Mythic, Color.red },
         { Rarity.Unique, Color.magenta },
-        { Rarity.Extreme, new Color(255, 131, 83) },
-        { Rarity.Legendary, new Color(255, 94, 32) },
+        { Rarity.Extreme, new Color(255f / 255f, 131f / 255f, 83f / 255f) },
+        { Rarity.Legendary, new Color(255f / 255f, 94f / 255f, 32f / 255f) },
     };
 }
 

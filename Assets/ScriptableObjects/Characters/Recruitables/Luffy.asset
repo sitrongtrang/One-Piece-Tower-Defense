@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Luffy
   m_EditorClassIdentifier: 
   isRecruitable: 1
-  characterPortrait: {fileID: 21300000, guid: 1a1aadbf754d7a949b1b101d517920b6, type: 3}
+  characterPortrait: {fileID: 21300000, guid: 6fef53ade070fe145a010c92d8c2bc1e, type: 3}
   characterName: Monkey D. Luffy
   rarity: 3
   attackPower: 0

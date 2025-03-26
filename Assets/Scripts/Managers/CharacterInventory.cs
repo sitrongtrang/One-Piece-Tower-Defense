@@ -48,6 +48,7 @@ public class CharacterInventory : MonoBehaviour
         if (HasCharacter(character))
         {
             characterInventory.Remove(character);
+            CharacterLoader.ReleaseCharacter(character);
             if (character.isRecruitable == true) CharacterPool.Instance.AddCharacter(character);
         }
         else Debug.Log("No character to be removed");

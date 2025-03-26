@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4421ad010e3d244087f52387f5b672e, type: 3}
-  m_Name: Nami
+  m_Name: Usopp (Heroic)
   m_EditorClassIdentifier: 
-  isRecruitable: 1
-  characterPortrait: {fileID: 21300000, guid: bacec47c294c093419184398296ad0b8, type: 3}
-  characterName: Nami
-  rarity: 3
+  isRecruitable: 0
+  characterPortrait: {fileID: 21300000, guid: 90532897ac76e8c4d901f2ce1a5f9b7a, type: 3}
+  characterName: Usopp
+  rarity: 4
   attackPower: 0
   attackSpeed: 0
   range: 0
@@ -24,12 +24,20 @@ MonoBehaviour:
   skillAnimation: 
   upgradeOptions:
   - upgradeTarget:
-      m_AssetGUID: b2581ec0c6b01b343899aae1b37fa179
+      m_AssetGUID: 6a42f40bcd569da43a8277cab7dd8ff2
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     obligatoryRequirements:
-    - m_AssetGUID: d2ae3db9c0cbc0e41893c2132b2b7412
+    - m_AssetGUID: cc48bdf81d66d3a4794b386b225f9b17
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: ad0327c7a9f7b4845a83ff49ecf96857
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: f69b30f814f0b254ca0e7561d33aef74
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

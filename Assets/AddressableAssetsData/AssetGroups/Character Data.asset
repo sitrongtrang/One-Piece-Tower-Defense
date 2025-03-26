@@ -204,6 +204,49 @@ MonoBehaviour:
     m_SerializedLabels:
     - CharacterData
     - Recruitables
+  - m_GUID: a32ca48b6b2c4f44ab9cb46e2b10fd2c
+    m_Address: Assets/ScriptableObjects/Characters/Upgrades/Morgan (Epic).asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: 722c091f3d6732c48914624f22b1729f
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Helmeppo.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: 091f3b32a9aa4b14c9e3a1068aa63c23
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Koby.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: 6a42f40bcd569da43a8277cab7dd8ff2
+    m_Address: Assets/ScriptableObjects/Characters/Upgrades/UsoppNewWorld.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: cc48bdf81d66d3a4794b386b225f9b17
+    m_Address: Assets/ScriptableObjects/Characters/Upgrades/Usopp (Heroic).asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: b2581ec0c6b01b343899aae1b37fa179
+    m_Address: Assets/ScriptableObjects/Characters/Upgrades/Nami (Heroic).asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+  - m_GUID: ad0327c7a9f7b4845a83ff49ecf96857
+    m_Address: Assets/ScriptableObjects/Characters/Recruitables/Hercules.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
+    - Recruitables
+  - m_GUID: 6e38dbfc2e201b84095eca47109a70c7
+    m_Address: Assets/ScriptableObjects/Characters/Upgrades/Sogeking.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterData
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 97b7620d8857e6d438c098827bbbc950, type: 2}
   m_SchemaSet:

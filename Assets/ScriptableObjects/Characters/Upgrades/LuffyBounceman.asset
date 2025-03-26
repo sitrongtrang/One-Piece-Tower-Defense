@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4421ad010e3d244087f52387f5b672e, type: 3}
-  m_Name: Nami
+  m_Name: LuffyBounceman
   m_EditorClassIdentifier: 
-  isRecruitable: 1
-  characterPortrait: {fileID: 21300000, guid: bacec47c294c093419184398296ad0b8, type: 3}
-  characterName: Nami
-  rarity: 3
+  isRecruitable: 0
+  characterPortrait: {fileID: 21300000, guid: a1202759d3546c648a7869271524684d, type: 3}
+  characterName: Luffy Bounceman
+  rarity: 6
   attackPower: 0
   attackSpeed: 0
   range: 0
@@ -24,12 +24,20 @@ MonoBehaviour:
   skillAnimation: 
   upgradeOptions:
   - upgradeTarget:
-      m_AssetGUID: b2581ec0c6b01b343899aae1b37fa179
+      m_AssetGUID: 48409aeba1e5dcf48809ed540d43f497
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     obligatoryRequirements:
-    - m_AssetGUID: d2ae3db9c0cbc0e41893c2132b2b7412
+    - m_AssetGUID: 56f5602f28d750147a5ea2774a1ce50d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: 7d1fe54c48848d8479006b133aa220a1
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: 2bf2b3107655409468bd93791990df64
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

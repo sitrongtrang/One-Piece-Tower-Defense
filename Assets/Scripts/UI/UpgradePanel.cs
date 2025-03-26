@@ -13,7 +13,7 @@ public class UpgradePanel : Panel
     private UpgradeRequirement requirement;
     private Canvas canvas;
     private int choosingSlot = -1;
-    private const int numMaterials = 5;
+    private const int numMaterials = 6;
     private CharacterData[] chosenMaterial = new CharacterData[numMaterials];
     private CharacterData targetCharacter;
 

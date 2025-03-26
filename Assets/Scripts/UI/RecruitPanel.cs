@@ -114,7 +114,7 @@ public class RecruitPanel : Panel
         else
         {
             CharacterInventory.Instance.AddCharacter(character);
-            RemoveSlot(choosingSlot);
+            RemoveSlot(choosingSlot, false);
             recruitedCharReferences[choosingSlot] = null;
             recruits[choosingSlot].image.sprite = emptyRecruitSlot;
             choosingSlot = -1;
@@ -134,9 +134,9 @@ public class RecruitPanel : Panel
         }
     }
 
-    public void RemoveSlot(int index)
+    public void RemoveSlot(int index, bool release = true)
     {
-        if (recruitedChars[index] != null) CharacterLoader.ReleaseCharacter(recruitedChars[index]);
+        if (recruitedChars[index] != null && release == true) CharacterLoader.ReleaseCharacter(recruitedChars[index]);
         recruitedChars[index] = null;
         recruits[index].image.sprite = emptyRecruitSlot;
     }

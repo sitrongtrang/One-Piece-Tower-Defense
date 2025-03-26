@@ -22,4 +22,24 @@ MonoBehaviour:
   health: 0
   attackAnimation: 
   skillAnimation: 
-  upgradeOptions: []
+  upgradeOptions:
+  - upgradeTarget:
+      m_AssetGUID: cc48bdf81d66d3a4794b386b225f9b17
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    obligatoryRequirements:
+    - m_AssetGUID: 61d7ea2247bb3c945a1a7967330a6588
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - upgradeTarget:
+      m_AssetGUID: 6e38dbfc2e201b84095eca47109a70c7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    obligatoryRequirements:
+    - m_AssetGUID: 61d7ea2247bb3c945a1a7967330a6588
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
